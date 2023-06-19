@@ -2,18 +2,32 @@
 
 namespace App\Http\Controllers;
 
+use App\Enums\UsersTypesEnums;
 use App\Models\Assessment;
 use App\Models\AssessmentUser;
 use App\Models\Rate;
 use App\Models\User;
+use App\Services\UserService;
 use Carbon\Carbon;
 use DB;
 use Illuminate\Http\Request;
 
 class ReportController extends Controller
 {
-    public function index()
+    public function index($month = null)
     {
+
+
+        $user = auth()->user();
+        $user_data = User::with('position')->whereNot('type', UsersTypesEnums::ADMIN)->find($user->id);
+        $userId = auth()->id();
+        $user_service = new UserService($user);
+        $firstQuarter = $user_service->getQuarterlyAverageRates($userId, Carbon::parse('January 1')->startOfQuarter(), Carbon::parse('March 31')->endOfQuarter());
+        $secondQuarter = $user_service->getQuarterlyAverageRates($userId, Carbon::parse('April 1')->startOfQuarter(), Carbon::parse('June 30')->endOfQuarter());
+        $thirdQuarter = $user_service->getQuarterlyAverageRates($userId, Carbon::parse('July 1')->startOfQuarter(), Carbon::parse('September 30')->endOfQuarter());
+        $lastQuarter = $user_service->getQuarterlyAverageRates($userId, Carbon::parse('October 1')->startOfQuarter(), Carbon::parse('December 31')->endOfQuarter());
+
+
         $highestRatedEmployee = DB::table('rate_answers')
             ->join('users', 'rate_answers.user_id', '=', 'users.id')
             ->select('users.name', 'users.image', DB::raw('AVG(rate_answers.rate) as average_rate'))
@@ -50,9 +64,25 @@ class ReportController extends Controller
             ->limit(3)
             ->get();
 
+        $month = $month ?? Carbon::today()->subMonth();
+        if (auth()->user()->AssessmentManager()->count() > 1) {
+
+            $assessmentsIds = Assessment::where('manager_id', auth()->id())->whereMonth('start_date', Carbon::parse($month))->pluck('id')->toArray();
+            $assessmentsDates = Assessment::orderBy('start_date', 'desc')->groupBy('start_date')
+                ->pluck('start_date')
+                ->toArray();
+
+            $RatedUsers = AssessmentUser::with('assessment.manager', 'user', 'rateUser')
+                ->whereHas('rateUser', function ($s) use ($assessmentsIds) {
+                    $s->whereIn('assessment_id', $assessmentsIds)->orderBy('rate', 'asc');
+                })
+                ->whereIn('assessment_id', $assessmentsIds)
+                ->get();
+        }
 
         return view('layout.master', get_defined_vars());
     }
+
 
     public function get_dates(Request $request)
     {
@@ -166,7 +196,6 @@ class ReportController extends Controller
 //    }
 
 
-
     public function get_emp_all(Request $request)
     {
         $dates = $request->dates;
@@ -228,15 +257,16 @@ class ReportController extends Controller
 
     public function ratedUsers($month = null)
     {
-        $month = $month ?? \Illuminate\Support\Carbon::today()->subMonth();
+        if (auth()->user()->type == 'employee') abort(404);
+        $month = $month ?? Carbon::today()->subMonth();
 //        $assessmentsIds = Assessment::whereMonth('start_date', Carbon::parse($month))->pluck('id')->toArray();
 
 
-        if (auth()->user()->AssessmentManager()->count() > 1) {
-            $assessmentsIds = Assessment::where('manager_id', auth()->id())->whereMonth('start_date', Carbon::parse($month))->pluck('id')->toArray();
-        } else {
-            $assessmentsIds = Assessment::whereMonth('start_date', Carbon::parse($month))->pluck('id')->toArray();
-        }
+//        if (auth()->user()->AssessmentManager()->count() > 1) {
+//            $assessmentsIds = Assessment::where('manager_id', auth()->id())->whereMonth('start_date', Carbon::parse($month))->pluck('id')->toArray();
+//        } else {
+//        }
+        $assessmentsIds = Assessment::whereMonth('start_date', Carbon::parse($month))->pluck('id')->toArray();
 
 //        $ratedUsersIds = Rate::whereIn('assessment_id', $assessmentsIds)->pluck('id')->toArray();
 //        rated users

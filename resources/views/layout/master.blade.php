@@ -44,5 +44,5 @@
 @else
     @include('dashboard.user-index')
 @endcheckAdmin
-    @include('dashboard.pages.users.update_image')
+{{--    @include('dashboard.pages.users.update_image')--}}
 @endsection

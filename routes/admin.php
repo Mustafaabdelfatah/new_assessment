@@ -35,7 +35,7 @@ Route::get('password/reset/{token}', [ResetPasswordController::class, 'showReset
 Route::post('password/reset', [ResetPasswordController::class, 'reset'])->name('password.update');
 
 Route::middleware(['auth'])->group(function () {
-    Route::get('/', [indexController::class, 'index']);
+//    Route::get('/', [indexController::class, 'index']);
 
     Route::group(['middleware' => 'isAdmin'], function () {
         Route::resource('users', UserController::class)->except('edit', 'create', 'show');
@@ -89,7 +89,7 @@ Route::middleware(['auth'])->group(function () {
     Route::post('/users/show', [UserController::class, 'show_users'])->name('show.users');
 
 
-    Route::get('/', [ReportController::class, 'index'])->name('show.reports');
+    Route::get('/{month?}', [ReportController::class, 'index'])->name('show.reports');
 
     Route::get('/get-dates', [ReportController::class, 'get_dates'])->name('get_dates');
     Route::get('/get-emp', [ReportController::class, 'get_emp'])->name('get_emp');
