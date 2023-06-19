@@ -98,7 +98,7 @@
 </div>
 
 
-@if(auth()->user()->AssessmentManager()->count() > 1)
+@if(auth()->user()->AssessmentManager()->count() >= 1)
     <div class="card ">
         <!--begin::Card header-->
 

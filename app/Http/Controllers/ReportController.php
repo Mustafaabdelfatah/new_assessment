@@ -65,7 +65,7 @@ class ReportController extends Controller
             ->get();
 
         $month = $month ?? Carbon::today()->subMonth();
-        if (auth()->user()->AssessmentManager()->count() > 1) {
+        if (auth()->user()->AssessmentManager()->count() >= 1) {
 
             $assessmentsIds = Assessment::where('manager_id', auth()->id())->whereMonth('start_date', Carbon::parse($month))->pluck('id')->toArray();
             $assessmentsDates = Assessment::orderBy('start_date', 'desc')->groupBy('start_date')
