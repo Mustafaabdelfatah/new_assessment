@@ -1,0 +1,22 @@
+<!--begin::Toolbar-->
+<div id="kt_app_toolbar" class="app-toolbar  pt-7 pt-lg-10 ">
+    <!--begin::Toolbar container-->
+    <div id="kt_app_toolbar_container" class="app-container  container-fluid d-flex align-items-stretch ">
+        <!--begin::Toolbar container-->
+        <div class="d-flex flex-stack flex-row-fluid">
+            <!--begin::Toolbar container-->
+            <div class="d-flex flex-column flex-row-fluid">
+                <!--begin::Toolbar wrapper-->
+                @include('layout.partials.toolbar._breadcrumb')
+                @include('layout.partials.toolbar._page-title')
+
+            </div>
+            <!--end::Toolbar container-->
+            @include('layout.partials.toolbar._actions')
+
+        </div>
+        <!--end::Toolbar container-->
+    </div>
+    <!--end::Toolbar container-->
+</div>
+<!--end::Toolbar-->
