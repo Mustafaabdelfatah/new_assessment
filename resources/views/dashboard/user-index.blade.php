@@ -153,7 +153,7 @@
                             {{ $rateUser?->assessment?->title }}
                         </td>
                         <td class="name" data-field="name">
-                            {{ $rateUser?->rateUser->rate}} %
+                            {{ $rateUser?->rate}} %
                         </td>
 
                     </tr>

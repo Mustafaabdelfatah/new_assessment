@@ -72,12 +72,13 @@ class ReportController extends Controller
                 ->pluck('start_date')
                 ->toArray();
 
-            $RatedUsers = AssessmentUser::with('assessment.manager', 'user', 'rateUser')
-                ->whereHas('rateUser', function ($s) use ($assessmentsIds) {
-                    $s->whereIn('assessment_id', $assessmentsIds)->orderBy('rate', 'asc');
-                })
-                ->whereIn('assessment_id', $assessmentsIds)
-                ->get();
+//            $RatedUsers = AssessmentUser::with('assessment.manager', 'user', 'rateUser')
+//                ->whereHas('rateUser', function ($s) use ($assessmentsIds) {
+//                    $s->whereIn('assessment_id', $assessmentsIds)->orderBy('rate', 'asc');
+//                })
+//                ->whereIn('assessment_id', $assessmentsIds)
+//                ->get();
+            $RatedUsers = Rate::whereIn('assessment_id',$assessmentsIds)->where('status','published')->orderBy('rate', 'desc')->get();
         }
 
         return view('layout.master', get_defined_vars());
