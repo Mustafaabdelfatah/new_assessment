@@ -78,7 +78,8 @@ Route::middleware(['auth'])->group(function () {
 
     Route::get('/rates', [RateController::class, 'rates'])->name('rates');
     Route::get('/rate/history/{user_id}', [RateController::class, 'rates_history'])->name('rates_history');
-    Route::get('/export-rates/{id}', [RateController::class, 'export_rate'])->name('export-rates');
+    Route::get('/export-rates/{month?}', [RateController::class, 'export_rate'])->name('export-rates');
+    Route::get('/export-unrated/{month?}', [RateController::class, 'export_unrate'])->name('export-unrated');
     Route::get('/rate/details/{assessment}/{startdate}/{enddate}/{userid?}', [RateController::class, 'getRateDetails'])->name('rate.details');
 
     // Route::get('/export-rates', [ReportController::class, 'export_rate'])->name('export-rates');

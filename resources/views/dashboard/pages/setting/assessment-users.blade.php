@@ -37,10 +37,12 @@
             </div>
         </div>
         <!--end::Card header-->
-        {{-- <button class="btn btn-light btn-active-light-primary btn-sm"
-        style="position: absolute;right: 27px;top:20px">
-        <a href="{{route('admin.export-rates')}}">export excel</a>
-    </button> --}}
+        <button class="btn btn-light btn-active-light-primary btn-sm"
+            style="position: absolute;right: 27px;top:20px">
+
+            <a href="{{ route('admin.export-rates', ['month' => Carbon::parse($month)->format('Y-m')]) }}">Export Excel</a>
+
+        </button>
 
         <!--begin::Card body-->
         <div class="card-body py-4">
@@ -97,7 +99,10 @@
 
         </div>
         <!--end::Card header-->
-
+        <button class="btn btn-light btn-active-light-primary btn-sm"
+        style="position: absolute;right: 27px;top:20px">
+        <a href="{{ route('admin.export-unrated', ['month' => Carbon::parse($month)->format('Y-m')]) }}">Export Excel</a>
+        </button>
         <!--begin::Card body-->
         <div class="card-body py-4">
             <table class="table align-middle table-row-dashed fs-6 gy-5" id="kt_datatable">

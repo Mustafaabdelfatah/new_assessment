@@ -2,17 +2,18 @@
 
 namespace App\Http\Controllers\Dashboard;
 
-use App\Enums\UsersTypesEnums;
-use App\Exports\RatesExport;
-use App\Http\Controllers\Controller;
-use App\Models\Assessment;
-use App\Models\Question;
-use App\Models\Rate;
-use App\Models\RateAnswer;
-use App\Models\User;
 use Carbon\Carbon;
+use App\Models\Rate;
+use App\Models\User;
+use App\Models\Question;
+use App\Models\Assessment;
+use App\Models\RateAnswer;
+use App\Exports\RatesExport;
 use Illuminate\Http\Request;
+use App\Enums\UsersTypesEnums;
+use App\Exports\unRatesExport;
 use Illuminate\Support\Facades\DB;
+use App\Http\Controllers\Controller;
 use Maatwebsite\Excel\Facades\Excel;
 
 class RateController extends Controller
@@ -60,9 +61,13 @@ class RateController extends Controller
         return view('dashboard.pages.rates.rates-history', get_defined_vars());
     }
 
-    public function export_rate($id)
+    public function export_rate($month)
     {
-        return Excel::download(new RatesExport($id), 'rates.xlsx');
+        return Excel::download(new RatesExport($month), 'rated-employee.xlsx');
+    }
+    public function export_unrate($month)
+    {
+        return Excel::download(new unRatesExport($month), 'unrated-employee.xlsx');
     }
 
     public function getRateDetails($assessment, $startDate, $endDate, $userId)

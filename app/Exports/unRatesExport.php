@@ -14,7 +14,7 @@ use Maatwebsite\Excel\Concerns\Exportable;
 use Maatwebsite\Excel\Concerns\WithHeadings;
 use Maatwebsite\Excel\Concerns\FromCollection;
 
-class RatesExport implements FromView
+class unRatesExport implements FromView
 {
 
 
@@ -45,7 +45,7 @@ class RatesExport implements FromView
         $unRatedUsers = AssessmentUser::with('assessment.manager', 'user','rateUser')->whereDoesntHave('rateUser', function ($s) use ($assessmentsIds) {
             $s->whereIn('assessment_id', $assessmentsIds);
         })->whereIn('assessment_id', $assessmentsIds)->get();
-        return view('dashboard.exports.rated-user', compact('RatedUsers'));
+        return view('dashboard.exports.unrated-user', compact('unRatedUsers'));
 
     }
 }
