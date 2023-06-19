@@ -135,35 +135,36 @@ class ReportController extends Controller
 
 
 //    assessment statistics
-    public function ratedUsers($month = null)
-    {
-        $month = $month ?? Carbon::today()->subMonth();
-        $assessmentsIds = Assessment::whereMonth('start_date', Carbon::parse($month))->pluck('id')->toArray();
+//    public function ratedUsers($month = null)
+//    {
+//        $month = $month ?? Carbon::today()->subMonth();
+//        $assessmentsIds = Assessment::whereMonth('start_date', Carbon::parse($month))->pluck('id')->toArray();
+//
+//
+////        $ratedUsersIds = Rate::whereIn('assessment_id', $assessmentsIds)->pluck('id')->toArray();
+////        rated users
+//        $assessmentsDates = Assessment::orderBy('start_date', 'desc')->groupBy('start_date')
+//            ->pluck('start_date')
+//            ->toArray();
+//
+//        $RatedUsers = AssessmentUser::with('assessment.manager', 'user','rateUser')
+//        ->whereHas('rateUser', function ($s) use ($assessmentsIds) {
+//            $s->whereIn('assessment_id', $assessmentsIds);
+//        })
+//        ->whereIn('assessment_id', $assessmentsIds)
+//        ->get();
+//
+//
+//        $unRatedUsers = AssessmentUser::with('assessment.manager', 'user','rateUser')->whereDoesntHave('rateUser', function ($s) use ($assessmentsIds) {
+//            $s->whereIn('assessment_id', $assessmentsIds);
+//        })->whereIn('assessment_id', $assessmentsIds)->get();
+//
+//
+//
+//        return view('dashboard.pages.setting.assessment-users', get_defined_vars());
+//
+//    }
 
-
-//        $ratedUsersIds = Rate::whereIn('assessment_id', $assessmentsIds)->pluck('id')->toArray();
-//        rated users
-        $assessmentsDates = Assessment::orderBy('start_date', 'desc')->groupBy('start_date')
-            ->pluck('start_date')
-            ->toArray();
-
-        $RatedUsers = AssessmentUser::with('assessment.manager', 'user','rateUser')
-        ->whereHas('rateUser', function ($s) use ($assessmentsIds) {
-            $s->whereIn('assessment_id', $assessmentsIds);
-        })
-        ->whereIn('assessment_id', $assessmentsIds)
-        ->get();
-
-
-        $unRatedUsers = AssessmentUser::with('assessment.manager', 'user','rateUser')->whereDoesntHave('rateUser', function ($s) use ($assessmentsIds) {
-            $s->whereIn('assessment_id', $assessmentsIds);
-        })->whereIn('assessment_id', $assessmentsIds)->get();
-
-
-
-        return view('dashboard.pages.setting.assessment-users', get_defined_vars());
-
-    }
 
 
     public function get_emp_all(Request $request)
@@ -222,6 +223,41 @@ class ReportController extends Controller
             return response($data, 404);
         }
 
+
+    }
+
+    public function ratedUsers($month = null)
+    {
+        $month = $month ?? \Illuminate\Support\Carbon::today()->subMonth();
+//        $assessmentsIds = Assessment::whereMonth('start_date', Carbon::parse($month))->pluck('id')->toArray();
+
+
+        if (auth()->user()->AssessmentManager()->count() > 1) {
+            $assessmentsIds = Assessment::where('manager_id', auth()->id())->whereMonth('start_date', Carbon::parse($month))->pluck('id')->toArray();
+        } else {
+            $assessmentsIds = Assessment::whereMonth('start_date', Carbon::parse($month))->pluck('id')->toArray();
+        }
+
+//        $ratedUsersIds = Rate::whereIn('assessment_id', $assessmentsIds)->pluck('id')->toArray();
+//        rated users
+        $assessmentsDates = Assessment::orderBy('start_date', 'desc')->groupBy('start_date')
+            ->pluck('start_date')
+            ->toArray();
+
+        $RatedUsers = AssessmentUser::with('assessment.manager', 'user', 'rateUser')
+            ->whereHas('rateUser', function ($s) use ($assessmentsIds) {
+                $s->whereIn('assessment_id', $assessmentsIds);
+            })
+            ->whereIn('assessment_id', $assessmentsIds)
+            ->get();
+
+
+        $unRatedUsers = AssessmentUser::with('assessment.manager', 'user', 'rateUser')->whereDoesntHave('rateUser', function ($s) use ($assessmentsIds) {
+            $s->whereIn('assessment_id', $assessmentsIds);
+        })->whereIn('assessment_id', $assessmentsIds)->get();
+
+
+        return view('dashboard.pages.setting.assessment-users', get_defined_vars());
 
     }
 

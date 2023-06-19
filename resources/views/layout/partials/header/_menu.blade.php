@@ -95,6 +95,13 @@
 
         @endif
 
+        @if(auth()->user()->type == UsersTypesEnums::ADMIN || auth()->user()->AssessmentManager()->count())
+            <div class="menu-item menu-lg-down-accordion menu-sub-lg-down-indention me-0 me-lg-2">
+                <a href="{{ url('/rated_users') }}" class="menu-link"><span class="menu-title">Rated Users
+                    </span><span class="menu-arrow d-lg-none"></span></a>
+            </div>
+        @endif
+
         @if ($UserAction)
             <div class="menu-item menu-lg-down-accordion menu-sub-lg-down-indention me-0 me-lg-2">
                 <a href="{{ route('admin.actions') }}" class="menu-link"><span class="menu-title">Actions
