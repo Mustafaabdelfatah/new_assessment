@@ -92,11 +92,11 @@ class UserService{
     public function getQuarterlyAverageRates($userId, $startDate, $endDate) {
         $averageRates = DB::table('rates')
             ->join('assessments', 'rates.assessment_id', '=', 'assessments.id')
-            ->select('assessments.title', DB::raw('AVG(rate) as average_rate'))
+            ->select('assessments.slug', DB::raw('AVG(rate) as average_rate'))
             ->where('rates.user_id', $userId)
             ->where('rates.status', 'published')
             ->whereBetween('rates.date', [$startDate, $endDate])
-            ->groupBy('assessments.title')
+            ->groupBy('assessments.slug')
             ->get();
         return $averageRates;
     }

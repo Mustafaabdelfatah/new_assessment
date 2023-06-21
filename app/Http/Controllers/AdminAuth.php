@@ -7,8 +7,11 @@ use Illuminate\Support\Facades\Hash;
 
 class AdminAuth extends Controller
 {
-
     public function login(Request $request)
+    {
+        return view('auth.login');
+    }
+    public function dologin(Request $request)
     {
 
         $credentials = $request->validate([

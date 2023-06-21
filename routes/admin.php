@@ -17,6 +17,8 @@ use App\Http\Controllers\Auth\ForgotPasswordController;
 use App\Http\Controllers\Dashboard\AssessmentController;
 
 
+
+
 Route::get('clone', function () {
     $assesss1 = Assessment::with('users', 'questions', 'actions')->where(['type' => 'monthly'])
         ->whereMonth('start_date', Carbon::today()->subMonths(1))
@@ -24,7 +26,8 @@ Route::get('clone', function () {
 
 });
 
-Route::post('login', [AdminAuth::class, 'login'])->name('login');
+Route::get('login', [AdminAuth::class, 'login'])->name('login');
+Route::post('login', [AdminAuth::class, 'dologin'])->name('login');
 Route::get('/logout', [AdminAuth::class, 'logout']);
 Route::post('change-password', [AdminAuth::class, 'change_password'])->name('changePassword');
 
@@ -89,13 +92,18 @@ Route::middleware(['auth'])->group(function () {
     Route::post('/users/show', [UserController::class, 'show_users'])->name('show.users');
 
 
-    Route::get('/{month?}', [ReportController::class, 'index'])->name('show.reports');
+    // Route::get('/{month?}', [ReportController::class, 'index'])->name('show.reports');
 
-    Route::get('/get-dates', [ReportController::class, 'get_dates'])->name('get_dates');
-    Route::get('/get-emp', [ReportController::class, 'get_emp'])->name('get_emp');
-    Route::get('/get-emp-all', [ReportController::class, 'get_emp_all'])->name('get_emp_all');
+    // Route::get('/get-emp', [ReportController::class, 'get_emp'])->name('get_emp');
+    // Route::get('/get-emp-all', [ReportController::class, 'get_emp_all'])->name('get_emp_all');
 
     // Route::get('/actions', [indexController::class, 'actions'])->name('actions');
+    Route::get('/get-emp-all', [ReportController::class, 'get_emp_all'])->name('get_emp_all');
+    Route::get('/get-dates', [ReportController::class, 'get_dates'])->name('get_dates');
+    Route::get('/get-employee', [ReportController::class, 'get_emp'])->name('get_emp');
+    Route::get('/get-chart', [ReportController::class, 'get_chart'])->name('get_chart');
+    Route::get('/{month?}', [ReportController::class, 'index'])->name('show.reports');
+    Route::get('/admin/chart', [ReportController::class, 'showRates'])->name('admin.showRates');
 
 
 });

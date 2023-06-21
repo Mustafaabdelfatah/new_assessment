@@ -98,7 +98,7 @@
                   <button  class="btn btn-icon assign-button btn-active-light-primary assign-question-button w-30px h-30px"
                      data-id="{{$assessment->id}}"
                      title="Assign Question">
-                  <img src="{{asset('icons/ask.png')}}" class="action_icon" style="height:20px" alt="">
+                  <img src="{{asset('icons/question-mark.png')}}" class="action_icon" style="height:20px" alt="">
                   </button>
                   @endif
                   <button id="edit-button-{{ $assessment->id }}" class="btn btn-icon edit-record btn-active-light-primary w-30px h-30px  "
@@ -238,7 +238,7 @@
 
        // open Alert modal and assign assessment_id to action
        var modalDisplayed = sessionStorage.getItem('modalDisplayed');
-       
+
        if (modalDisplayed === null) {
            $("#AlertModal").modal('show');
            sessionStorage.setItem('modalDisplayed', 'true');

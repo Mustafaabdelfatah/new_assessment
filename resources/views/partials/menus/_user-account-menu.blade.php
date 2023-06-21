@@ -1,3 +1,14 @@
+{{-- @push('css') --}}
+<style>
+    .modal-backdrop {
+        z-index: 0 !important
+    }
+
+    .modal-backdrop.fade {
+        opacity: 0 !important;
+    }
+</style>
+{{-- @endpush --}}
 <!--begin::User account menu-->
 <div class="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-800 menu-state-bg menu-state-color fw-semibold py-4 fs-6 w-275px"
     data-kt-menu="true">
@@ -5,22 +16,23 @@
     <div class="menu-item px-3">
         <div class="menu-content d-flex align-items-center px-3">
             <!--begin::Avatar-->
-            @if(auth()->user()->image_path)
-            <img src="{{auth()->user()->image_path}}" style="width: 40px;height:40px;border-radius:50%;margin:0 10px" alt="User Image">
+            @if (auth()->user()->image_path)
+                <img src="{{ auth()->user()->image_path }}"
+                    style="width: 40px;height:40px;border-radius:50%;margin:0 10px" alt="User Image">
             @else
-            <span class="svg-icon svg-icon-muted svg-icon-3hx">
-                <svg width="18" height="18" viewBox="0 0 18 18"
-                    fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path opacity="0.3"
-                        d="M16.5 9C16.5 13.125 13.125 16.5 9 16.5C4.875 16.5 1.5 13.125 1.5 9C1.5 4.875 4.875 1.5 9 1.5C13.125 1.5 16.5 4.875 16.5 9Z"
-                        fill="currentColor" />
-                    <path
-                        d="M9 16.5C10.95 16.5 12.75 15.75 14.025 14.55C13.425 12.675 11.4 11.25 9 11.25C6.6 11.25 4.57499 12.675 3.97499 14.55C5.24999 15.75 7.05 16.5 9 16.5Z"
-                        fill="currentColor" />
-                    <rect x="7" y="6" width="4" height="4" rx="2"
-                        fill="currentColor" />
-                </svg>
-            </span>
+                <span class="svg-icon svg-icon-muted svg-icon-3hx">
+                    <svg width="18" height="18" viewBox="0 0 18 18" fill="none"
+                        xmlns="http://www.w3.org/2000/svg">
+                        <path opacity="0.3"
+                            d="M16.5 9C16.5 13.125 13.125 16.5 9 16.5C4.875 16.5 1.5 13.125 1.5 9C1.5 4.875 4.875 1.5 9 1.5C13.125 1.5 16.5 4.875 16.5 9Z"
+                            fill="currentColor" />
+                        <path
+                            d="M9 16.5C10.95 16.5 12.75 15.75 14.025 14.55C13.425 12.675 11.4 11.25 9 11.25C6.6 11.25 4.57499 12.675 3.97499 14.55C5.24999 15.75 7.05 16.5 9 16.5Z"
+                            fill="currentColor" />
+                        <rect x="7" y="6" width="4" height="4" rx="2"
+                            fill="currentColor" />
+                    </svg>
+                </span>
             @endif
 
             {{-- <div class="symbol symbol-50px me-5">
@@ -172,7 +184,7 @@
 <!--end::User account menu-->
 @push('js')
     <script>
-        $('#signOut').on('click',function (e){
+        $('#signOut').on('click', function(e) {
             sessionStorage.removeItem('modalDisplayed');
         });
         $('#changePasswordForm').submit(function(e) {
@@ -197,7 +209,8 @@
                 success: function(data) {
 
                     $('#changePasswordModal').modal('hide');
-                    $('#current_password, #new_password, #new_password_confirmation').val(''); // clear input fields
+                    $('#current_password, #new_password, #new_password_confirmation').val(
+                        ''); // clear input fields
                     swal.fire({
                         title: 'Success!',
                         text: data.message,

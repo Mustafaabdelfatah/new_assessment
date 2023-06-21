@@ -67,6 +67,10 @@
             <a href="{{ url('categories') }}" class="menu-link"><span class="menu-title">Category
                 </span><span class="menu-arrow d-lg-none"></span></a>
         </div>
+        <div class="menu-item menu-lg-down-accordion menu-sub-lg-down-indention me-0 me-lg-2">
+            <a href="{{ route('admin.show.rated_users') }}" class="menu-link"><span class="menu-title">Rates </span><span
+                    class="menu-arrow d-lg-none"></span></a>
+        </div>
         @endcheckAdmin()
 
         @if (auth()->user()->AssessmentManager()->count() > 0 || auth()->user()->type == UsersTypesEnums::ADMIN)
@@ -75,10 +79,7 @@
                         class="menu-arrow d-lg-none"></span></a>
             </div> --}}
 
-            <div class="menu-item menu-lg-down-accordion menu-sub-lg-down-indention me-0 me-lg-2">
-                <a href="{{ route('admin.show.rated_users') }}" class="menu-link"><span class="menu-title">Rates </span><span
-                        class="menu-arrow d-lg-none"></span></a>
-            </div>
+
 
             <div class="menu-item menu-lg-down-accordion menu-sub-lg-down-indention me-0 me-lg-2">
                 <a href="{{ route('admin.assessments.index') }}" class="menu-link"><span class="menu-title">Assessment
@@ -89,13 +90,13 @@
         @endif
         @if (auth()->user()->type == UsersTypesEnums::ADMIN)
         <div class="menu-item menu-lg-down-accordion menu-sub-lg-down-indention me-0 me-lg-2">
-            <a href="{{ url('/setting') }}" class="menu-link"><span class="menu-title">Setting
+            <a href="{{ url('/setting') }}" class="menu-link"><span class="menu-title">Mail / Settings
                     </span><span class="menu-arrow d-lg-none"></span></a>
         </div>
 
         @endif
 
-        @if(auth()->user()->type == UsersTypesEnums::ADMIN)
+        {{-- @if(auth()->user()->type == UsersTypesEnums::ADMIN)
             <div class="menu-item menu-lg-down-accordion menu-sub-lg-down-indention me-0 me-lg-2">
                 <a href="{{ url('/rated_users') }}" class="menu-link"><span class="menu-title">Rated Users
                     </span><span class="menu-arrow d-lg-none"></span></a>
@@ -107,7 +108,7 @@
                 <a href="{{ route('admin.actions') }}" class="menu-link"><span class="menu-title">Actions
                     </span><span class="menu-arrow d-lg-none"></span></a>
             </div>
-        @endif
+        @endif --}}
 
         <!--end:Menu item-->
 

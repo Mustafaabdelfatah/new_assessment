@@ -5,93 +5,93 @@
     use App\Models\Question;
     use App\Models\Rate;
     use App\Models\Assessment;
-    use App\Models\User;use Carbon\Carbon;
+    use App\Models\User;
+    use Carbon\Carbon;
 @endphp
 <div>
     <div class="container-fluid">
         <div class="row">
-                @isset($highestRatedEmployee)
-                    <div class="col-xl-6 mb-xl-10 mx-auto">
-                        <div class="card border-transparent " data-bs-theme="light" style="background-color: #1C325E;">
-                            <!--begin::Body-->
-                            <div class="card-body d-flex ps-xl-15">
-                                <!--begin::Wrapper-->
-                                <div class="m-0">
-                                    <!--begin::Title-->
-                                    <div class="position-relative fs-2x z-index-2 fw-bold text-white mb-7">
+            @isset($highestRatedEmployee)
+                <div class="col-xl-6 mb-xl-10 mx-auto">
+                    <div class="card border-transparent " data-bs-theme="light" style="background-color: #1C325E;">
+                        <!--begin::Body-->
+                        <div class="card-body d-flex ps-xl-15">
+                            <!--begin::Wrapper-->
+                            <div class="m-0">
+                                <!--begin::Title-->
+                                <div class="position-relative fs-2x z-index-2 fw-bold text-white mb-7">
                                     <span class="me-2">
                                         Best Employee
                                     </span>
-                                        <div class="mt-2">
-                                            {{ $highestRatedEmployee->name }}
-                                        </div>
+                                    <div class="mt-2">
+                                        {{ $highestRatedEmployee->name }}
                                     </div>
-                                    <!--end::Title-->
-
-                                    <!--begin::Action-->
-                                    <div class="mb-3">
-                                        <a href="#" class="btn btn-danger fw-semibold me-2" data-bs-toggle="modal"
-                                        data-bs-target="#kt_modal_upgrade_plan">
-                                            {{ number_format($highestRatedEmployee->average_rate,2) }}%
-                                        </a>
-                                    </div>
-                                    <!--begin::Action-->
                                 </div>
-                                <!--begin::Wrapper-->
+                                <!--end::Title-->
 
-                                <!--begin::Illustration-->
-                                <img src="{{ asset('assets/media/illustrations/sigma-1/17-dark.png') }}"
-                                    class="position-absolute me-3 bottom-0 end-0 h-200px" alt="">
-                                <!--end::Illustration-->
+                                <!--begin::Action-->
+                                <div class="mb-3">
+                                    <a href="#" class="btn btn-danger fw-semibold me-2" data-bs-toggle="modal"
+                                        data-bs-target="#kt_modal_upgrade_plan">
+                                        {{ number_format($highestRatedEmployee->average_rate, 2) }}%
+                                    </a>
+                                </div>
+                                <!--begin::Action-->
                             </div>
-                            <!--end::Body-->
+                            <!--begin::Wrapper-->
+
+                            <!--begin::Illustration-->
+                            <img src="{{ asset('assets/media/illustrations/sigma-1/17-dark.png') }}"
+                                class="position-absolute me-3 bottom-0 end-0 h-200px" alt="">
+                            <!--end::Illustration-->
                         </div>
+                        <!--end::Body-->
                     </div>
-                @endisset
-                @isset($lowesttRatedEmployee)
-                    <div class="col-xl-6 mb-xl-10 mx-auto">
-                        <div class="card border-transparent " data-bs-theme="light" style="background-color: #1C325E;">
-                            <!--begin::Body-->
-                            <div class="card-body d-flex ps-xl-15">
-                                <!--begin::Wrapper-->
-                                <div class="m-0">
-                                    <!--begin::Title-->
-                                    <div class="position-relative fs-2x z-index-2 fw-bold text-white mb-7">
+                </div>
+            @endisset
+            @isset($lowesttRatedEmployee)
+                <div class="col-xl-6 mb-xl-10 mx-auto">
+                    <div class="card border-transparent " data-bs-theme="light" style="background-color: #1C325E;">
+                        <!--begin::Body-->
+                        <div class="card-body d-flex ps-xl-15">
+                            <!--begin::Wrapper-->
+                            <div class="m-0">
+                                <!--begin::Title-->
+                                <div class="position-relative fs-2x z-index-2 fw-bold text-white mb-7">
                                     <span class="me-2">
                                         Bad Employee
                                     </span>
-                                        <div class="mt-2">
-                                            {{ $lowesttRatedEmployee->name }}
-                                        </div>
+                                    <div class="mt-2">
+                                        {{ $lowesttRatedEmployee->name }}
                                     </div>
-                                    <!--end::Title-->
-
-                                    <!--begin::Action-->
-                                    <div class="mb-3">
-                                        <a href="#" class="btn btn-danger fw-semibold me-2" data-bs-toggle="modal"
-                                        data-bs-target="#kt_modal_upgrade_plan">
-                                            {{ number_format($lowesttRatedEmployee->average_rate,2) }}%
-                                        </a>
-                                    </div>
-                                    <!--begin::Action-->
                                 </div>
-                                <!--begin::Wrapper-->
+                                <!--end::Title-->
 
-                                <!--begin::Illustration-->
-                                <img src="{{ asset('assets/media/illustrations/sigma-1/17-dark.png') }}"
-                                    class="position-absolute me-3 bottom-0 end-0 h-200px" alt="">
-                                <!--end::Illustration-->
+                                <!--begin::Action-->
+                                <div class="mb-3">
+                                    <a href="#" class="btn btn-danger fw-semibold me-2" data-bs-toggle="modal"
+                                        data-bs-target="#kt_modal_upgrade_plan">
+                                        {{ number_format($lowesttRatedEmployee->average_rate, 2) }}%
+                                    </a>
+                                </div>
+                                <!--begin::Action-->
                             </div>
-                            <!--end::Body-->
+                            <!--begin::Wrapper-->
+
+                            <!--begin::Illustration-->
+                            <img src="{{ asset('assets/media/illustrations/sigma-1/17-dark.png') }}"
+                                class="position-absolute me-3 bottom-0 end-0 h-200px" alt="">
+                            <!--end::Illustration-->
                         </div>
+                        <!--end::Body-->
                     </div>
-                @endisset
+                </div>
+            @endisset
         </div>
         <div class="row">
-            <div class="col-xl-4 mb-xl-10">
+            <div class="col-xl-4 mb-xl-10" style="height: auto">
                 <div class="card card-flush h-xl-100">
-                    <div
-                        class="card-header rounded bgi-no-repeat bgi-size-cover bgi-position-y-top bgi-position-x-center align-items-start h-250px"
+                    <div class="card-header rounded bgi-no-repeat bgi-size-cover bgi-position-y-top bgi-position-x-center align-items-start h-250px"
                         style="background-image:url('https://preview.keenthemes.com/metronic8/demo41/assets/media/svg/shapes/top-green.png')"
                         data-bs-theme="light">
                         <h3 class="card-title align-items-start flex-column text-white pt-15">
@@ -101,8 +101,7 @@
                                 <span class="opacity-75">You have</span>
 
                                 <span class="position-relative d-inline-block">
-                                    <a href="#"
-                                       class="link-white opacity-75-hover fw-bold d-block mb-1"></a>
+                                    <a href="#" class="link-white opacity-75-hover fw-bold d-block mb-1"></a>
 
                                     <span
                                         class="position-absolute opacity-50 bottom-0 start-0 border-2 border-body border-bottom w-100"></span>
@@ -120,7 +119,7 @@
                                                 <span class="svg-icon svg-icon-1 svg-icon-primary">
                                                     {{-- <i class="fas fa-layer-group fs-2x"></i> --}}
                                                     <img src="{{ asset('icons/leadership.png') }}" style="width: 26px"
-                                                         alt="">
+                                                        alt="">
                                                 </span>
                                             </span>
                                         </div>
@@ -137,7 +136,7 @@
                                             <span class="symbol-label">
                                                 <span class="svg-icon svg-icon-1 svg-icon-primary">
                                                     <img src="{{ asset('icons/group.png') }}" style="width: 26px"
-                                                         alt="">
+                                                        alt="">
                                                 </span>
                                             </span>
                                         </div>
@@ -155,7 +154,7 @@
                                             <span class="symbol-label">
                                                 <span class="svg-icon svg-icon-1 svg-icon-primary">
                                                     <img src="{{ asset('icons/question.png') }}" style="width: 26px"
-                                                         alt="">
+                                                        alt="">
                                                 </span>
                                             </span>
                                         </div>
@@ -174,7 +173,7 @@
                                             <span class="symbol-label">
                                                 <span class="svg-icon svg-icon-1 svg-icon-primary">
                                                     <img src="{{ asset('icons/evaluation.png') }}" style="width: 26px"
-                                                         alt="">
+                                                        alt="">
                                                 </span>
                                             </span>
                                         </div>
@@ -193,7 +192,7 @@
                 </div>
             </div>
             @isset($highestAvgRates)
-                <div class="col-xl-4 mb-xl-10">
+                <div class="col-xl-4 mb-xl-10" style="height: auto">
                     <div class="card card-flush h-xl-100">
                         <!--begin::Header-->
                         <div class="card-header py-7 d-block">
@@ -202,17 +201,18 @@
                                 <!--begin::Heading-->
                                 <div class="d-flex align-items-center mb-2">
                                     <!--begin::Title-->
-                                    <h2 class="  text-gray-800 me-2 lh-1 ls-n2 mb-5">Highest And Below Rate In Specific Assessment
+                                    <h2 class="  text-gray-800 me-2 lh-1 ls-n2 mb-5">Highest And Below Rate In Specific
+                                        Assessment
                                     </h2>
                                 </div>
                                 <div class="row">
                                     <div class="col-md-12 mt-4">
                                         <label for="select-group">Select Type</label>
 
-                                        <select class="form-control nice-select select_group" id="select-group">
-                                            @foreach($getAssessSlugs as $group )
-                                                <option
-                                                    value="{{ $group }}" {{ $loop->first ? 'selected' : '' }}>{{ ucfirst(str_replace('-',' ',$group)) }}</option>
+                                        <select class="form-control select_2 select_group" id="select-group">
+                                            @foreach ($getAssessSlugs as $group)
+                                                <option value="{{ $group }}" {{ $loop->first ? 'selected' : '' }}>
+                                                    {{ ucfirst(str_replace('-', ' ', $group)) }}</option>
                                             @endforeach
                                         </select>
                                     </div>
@@ -220,9 +220,10 @@
                                         <label for="select-group">Select Date</label>
                                         <select class="form-select select_2" id="select-group-date" multiple>
                                             <option value="all">All</option>
-                                            @foreach($getAssessDates as $date )
-                                                <option
-                                                    value="{{ Carbon::parse($date)->format('Y-m-d') }}" {{ $loop->last ? 'selected' : '' }}>{{ Carbon::parse($date)->format('Y-m-d') }}</option>
+                                            @foreach ($getAssessDates as $date)
+                                                <option value="{{ Carbon::parse($date)->format('Y-m-d') }}"
+                                                    {{ $loop->last ? 'selected' : '' }}>
+                                                    {{ Carbon::parse($date)->format('Y-m-d') }}</option>
                                             @endforeach
                                         </select>
                                     </div>
@@ -231,9 +232,8 @@
                                         <label for="select-group">Select Employees to send</label>
                                         <select class="form-select select_2" id="-group-date" multiple>
                                             <option value="all">All</option>
-                                            @foreach($users as $user )
-                                                <option
-                                                    value="{{ $user->id }}" >{{ $user->name }}</option>
+                                            @foreach ($users as $user)
+                                                <option value="{{ $user->id }}">{{ $user->name }}</option>
                                             @endforeach
                                         </select>
                                     </div>
@@ -265,7 +265,7 @@
                 </div>
             @endisset
             {{-- @isset($highestAvgRates) --}}
-            <div class="col-xl-4 mb-xl-10">
+            <div class="col-xl-4 mb-xl-10" style="height: auto">
                 <div class="card card-flush h-xl-100">
                     <!--begin::Header-->
                     <div class="card-header py-7 d-block">
@@ -274,7 +274,8 @@
                             <!--begin::Heading-->
                             <div class="d-flex align-items-center mb-2">
                                 <!--begin::Title-->
-                                <h2 class=" text-gray-800 me-2 lh-1 ls-n2 mb-5">Highest And Below Rate In All System</h2>
+                                <h2 class=" text-gray-800 me-2 lh-1 ls-n2 mb-5">Highest And Below Rate In All System
+                                </h2>
                             </div>
                             <div class="row">
 
@@ -287,7 +288,8 @@
                                                 $date = \Carbon\Carbon::create(null, $month, 1);
                                             @endphp
 
-                                            <option value="{{ Carbon::parse($date)->format('Y-m-d') }}">{{ $date->format('d - F - Y') }}</option>
+                                            <option value="{{ Carbon::parse($date)->format('Y-m-d') }}">
+                                                {{ $date->format('d - F - Y') }}</option>
                                         @endfor
                                     </select>
                                 </div>
@@ -313,156 +315,69 @@
                     <!--end::Body-->
                 </div>
             </div>
+
+
+            {{-- @dd($assessment_charts) --}}
             {{-- @endisset --}}
-            @isset($highestAvgRates)
-                <div class="col-xl-4 mb-xl-10">
-                    <div class="card card-flush h-xl-100">
-                        <!--begin::Header-->
-                        <div class="card-header py-7 d-block">
-                            <!--begin::Statistics-->
-                            <div class="m-0">
-                                <!--begin::Heading-->
-                                <div class="d-flex align-items-center mb-2">
-                                    <!--begin::Title-->
-                                    <span class="fs-2hx fw-bold text-gray-800 me-2 lh-1 ls-n2 mb-5">Highest & Lowest Rate Last 3 Months</span>
+            {{-- @isset($highestAvgRates) --}}
+            <div class="col-xl-8 mb-xl-10">
+                <div class="card card-flush h-xl-100">
+                    <!--begin::Header-->
+                    <div class="card-header py-7 d-block">
+                        <!--begin::Statistics-->
+                        <div class="m-0">
+                            <!--begin::Heading-->
+                            <div class="d-flex align-items-center mb-2">
+
+                                <div class="col-md-6 mt-4">
+                                    <label for="select-group">Select Type</label>
+
+
+                                    <select class="form-control select_2 select_group22" id="select-group22">
+                                        @foreach ($getAssessSlugs as $group)
+                                            <option value="{{ $group }}" {{ $loop->first ? 'selected' : '' }}>
+                                                {{ ucfirst(str_replace('-', ' ', $group)) }}</option>
+                                        @endforeach
+                                    </select>
                                 </div>
-
+                                <div class="col-md-6 mt-4">
+                                    <label for="select-group">Select Date</label>
+                                    <select class="form-select select_2" id="select-group-date22" multiple>
+                                        <option value="all">All</option>
+                                        @foreach ($getAssessDates as $date)
+                                            <option value="{{ Carbon::parse($date)->format('Y-m-d') }}"
+                                                {{ $loop->last ? 'selected' : '' }}>
+                                                {{ Carbon::parse($date)->format('Y-m-d') }}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
                             </div>
+
                         </div>
-                        <!--end::Header-->
+                    </div>
+                    <!--end::Header-->
 
-                        <!--begin::Body-->
-                        <div class="card-body pt-0 pb-1">
-                            <div id="chart">
-                            </div>
+                    <!--begin::Body-->
+                    <div class="card-body pt-0 pb-1">
+                        <div id="chart">
                         </div>
                     </div>
                 </div>
-            @endisset
-            @isset($highestAvgRates)
-                <div class="col-xl-4 mb-xl-10">
-                    <div class="card card-flush h-xl-100">
-                        <!--begin::Header-->
-                        <div class="card-header py-7 d-block">
-                            <!--begin::Statistics-->
-                            <div class="m-0">
-                                <!--begin::Heading-->
-                                <div class="d-flex align-items-center mb-2">
-                                    <!--begin::Title-->
-                                    <span class="fs-2hx fw-bold text-gray-800 me-2 lh-1 ls-n2 mb-5">Highest & Lowest Rate Last 3 Months</span>
-                                </div>
+            </div>
+            {{-- @endisset --}}
 
-                            </div>
-                        </div>
-                        <!--end::Header-->
-
-                        <!--begin::Body-->
-                        <div class="card-body pt-0 pb-1">
-                            <div id="chart2">
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            @endisset
         </div>
     </div>
 </div>
 @push('js')
-    <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
+    {{-- <script src="{{ asset('assets/js/apexcharts.min.js') }}"></script> --}}
+
+    {{-- <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script> --}}
+
     <script>
+        $(document).ready(function(string) {
+            $('.select_group').change(function(e) {
 
-        var options = {
-            series: [{
-                data: [98.5, 90.2, 85],
-                name: ['mustafa salama']
-            }, {
-                data: [60, 70, 75],
-                name: ['hassan elhawary']
-            }],
-            chart: {
-                type: 'bar',
-                height: 430
-            },
-            plotOptions: {
-                bar: {
-                    horizontal: true,
-                    dataLabels: {
-                        position: 'top',
-                    },
-                }
-            },
-            dataLabels: {
-                enabled: true,
-                offsetX: -6,
-                style: {
-                    fontSize: '12px',
-                    colors: ['#fff']
-                }
-            },
-            stroke: {
-                show: true,
-                width: 1,
-                colors: ['#fff']
-            },
-            tooltip: {
-                shared: true,
-                intersect: false
-            },
-            xaxis: {
-                categories: ['Mar', "apr", 'May'],
-            },
-        };
-
-        var chart = new ApexCharts(document.querySelector("#chart"), options);
-        chart.render();
-
-
-        var options = {
-            series: [{
-                name: 'Mustafa Salama',
-                data: [80, 50, 30, 40, 100, 20],
-            }, {
-                name: 'Hassan Elhawary',
-                data: [20, 30, 40, 80, 20, 80],
-            }, {
-                name: 'Hamid Blabel',
-                data: [44, 76, 78, 13, 43, 10],
-            }],
-            chart: {
-                height: 350,
-                type: 'radar',
-                dropShadow: {
-                    enabled: true,
-                    blur: 1,
-                    left: 1,
-                    top: 1
-                }
-            },
-            title: {
-                text: 'Radar Chart - Multi Series'
-            },
-            stroke: {
-                width: 2
-            },
-            fill: {
-                opacity: 0.1
-            },
-            markers: {
-                size: 0
-            },
-            xaxis: {
-                categories: ['Mar', 'Apr', 'May']
-            }
-        };
-
-        var chart = new ApexCharts(document.querySelector("#chart2"), options);
-        chart.render();
-
-
-    </script>
-    <script>
-        $(document).ready(function (string) {
-            $('.select_group').change(function (e) {
                 e.preventDefault();
                 let itemVal = $(this).val();
                 $.ajax({
@@ -472,51 +387,158 @@
                         "slug": itemVal,
                     },
                     dataType: 'json',
-                    success: function (res) {
+                    success: function(res) {
                         let selectDate = $('#select-group-date');
                         selectDate.empty();
                         selectDate.append('<option value="all">Select All</option>');
-                        $.each(res.data, function (key, value) {
-                            selectDate.append('<option value="' + value + '">' + value + '</option>');
+                        $.each(res.data, function(key, value) {
+                            selectDate.append('<option value="' + value + '">' + value +
+                                '</option>');
+                        });
+                    }
+                });
+            });
+            $('.select_group22').change(function(e) {
+
+                e.preventDefault();
+                let itemVal = $(this).val();
+
+                $.ajax({
+                    url: '{{ url('/get-dates') }}',
+                    type: 'GET',
+                    data: {
+                        "slug": itemVal,
+                    },
+                    dataType: 'json',
+                    success: function(res) {
+
+                        let selectDate = $('#select-group-date22');
+                        selectDate.empty();
+                        selectDate.append('<option value="all">Select All</option>');
+                        $.each(res.data, function(key, value) {
+                            selectDate.append('<option value="' + value + '">' + value +
+                                '</option>');
                         });
                     }
                 });
             });
 
 
-            $('#select-group-date').change(function (e) {
+
+            $('#select-group-date22').change(function(e) {
                 e.preventDefault();
                 let itemVal = $(this).val();
-                let slug = $('.select_group').val();
+                let slug = $('.select_group22').val();
 
                 $.ajax({
-                    url: '{{ url('/get-emp') }}',
+                    url: '{{ url('/get-chart') }}',
                     type: 'GET',
                     data: {
                         "dates": itemVal,
                         "slug": slug
                     },
                     dataType: 'json',
-                    success: function (res) {
+                    success: function(res) {
+                        let highestAvgRates = res.data;
+                        let employees = highestAvgRates.map(rate => rate.name);
+                        let rates = highestAvgRates.map(rate => rate.avg_rate);
+                        // Update the chart
+                        console.log(employees, rates);
+                        updateChart(employees, rates);
+                    }
+                });
+            });
+            $('#select-group-date22').trigger('change');
+
+            function updateChart(employees, rates) {
+                // console.log(rates, 'testss');
+                var options = {
+                    series: [{
+                        data: rates
+                    }],
+                    chart: {
+                        type: 'bar',
+                        height: 350
+                    },
+                    plotOptions: {
+                        bar: {
+                            borderRadius: 4,
+                            horizontal: true,
+                        }
+                    },
+                    dataLabels: {
+                        enabled: false
+                    },
+                    xaxis: {
+                        categories: employees
+                    }
+                };
+
+                var chart = new ApexCharts(document.querySelector("#chart"), options);
+                chart.render();
+                // let options = {
+                //     chart: {
+                //         type: 'bar',
+                //         height: 400
+                //     },
+                //     series: [{
+                //         name: 'Rate',
+                //         data: rates
+                //     }],
+                //     xaxis: {
+                //         categories: employees
+                //     },
+                //     tooltip: {
+                //         y: {
+                //             formatter: function(val) {
+                //                 return val + '%';
+                //             }
+                //         }
+                //     }
+                // };
+
+                // let chart = new ApexCharts(document.querySelector("#chart"), options);
+                // chart.render();
+            }
+
+            $('#select-group-date').change(function(e) {
+                e.preventDefault();
+                let itemVal = $(this).val();
+                let slug = $('.select_group').val();
+
+                $.ajax({
+                    url: '{{ url('/get-employee') }}',
+                    type: 'GET',
+                    data: {
+                        "dates": itemVal,
+                        "slug": slug
+                    },
+                    dataType: 'json',
+                    success: function(res) {
+
                         let highest = res.data.highest;
                         let lowest = res.data.lowest;
                         let highestSection = $('.highestSection');
                         highestSection.empty();
-                        $.each(highest, function (key, value) {
-                            highestSection.append(`<div class="py-1 px-4 mt-2"><span class="fw-bold">${value.name}</span><div class=" empStateTop mt-2 position-relative" ><div  class="userGreen py-1   text-center text-white" style="width:${(parseFloat(value.avg_rate, 2))}%"></div> <span class="avgUser position-absolute">${(parseFloat(value.avg_rate, 2))}%</span></div></div>`);
+                        $.each(highest, function(key, value) {
+                            highestSection.append(
+                                `<div class="py-1 px-4 mt-2"><span class="fw-bold">${value.name}</span><div class=" empStateTop mt-2 position-relative" ><div  class="userGreen py-1   text-center text-white" style="width:${(parseFloat(value.avg_rate, 2))}%"></div> <span class="avgUser position-absolute">${(parseFloat(value.avg_rate, 2))}%</span></div></div>`
+                            );
                         });
 
                         let lowestSection = $('.lowestSection');
                         lowestSection.empty();
-                        $.each(lowest, function (key, value) {
-                            highestSection.append(`<div class="py-1 px-4 mt-2"> <span class="fw-bold">${value.name}</span><div class=" empStateDanger mt-2 position-relative" ><div class="bg-danger  py-1  text-center text-white" style="width:${(parseFloat(value.avg_rate, 2))}%"></div> <span class="avgUser position-absolute">${(parseFloat(value.avg_rate, 2))}%</span></div></div>`);
+                        $.each(lowest, function(key, value) {
+                            highestSection.append(
+                                `<div class="py-1 px-4 mt-2"> <span class="fw-bold">${value.name}</span><div class=" empStateDanger mt-2 position-relative" ><div class="bg-danger  py-1  text-center text-white" style="width:${(parseFloat(value.avg_rate, 2))}%"></div> <span class="avgUser position-absolute">${(parseFloat(value.avg_rate, 2))}%</span></div></div>`
+                            );
                         });
 
                     }
                 });
             });
             $('#select-group-date').trigger('change');
-            $('#select-group-date-second').change(function (e) {
+            $('#select-group-date-second').change(function(e) {
                 e.preventDefault();
                 let itemVal = $(this).val();
 
@@ -527,18 +549,22 @@
                         "dates": itemVal,
                     },
                     dataType: 'json',
-                    success: function (res) {
+                    success: function(res) {
                         let highest = res.data.highest;
                         let lowest = res.data.lowest;
                         let highestSection = $('.highestSectionAll');
                         highestSection.empty();
-                        $.each(highest, function (key, value) {
-                            highestSection.append(`<div class="py-1 px-4 mt-2"><span class="fw-bold">${value.name}</span><div class=" empStateTop mt-2 position-relative" ><div  class="userGreen py-1   text-center text-white" style="width:${(parseFloat(value.avg_rate, 2))}%"></div> <span class="avgUser position-absolute">${(parseFloat(value.avg_rate, 2))}%</span></div></div>`);
+                        $.each(highest, function(key, value) {
+                            highestSection.append(
+                                `<div class="py-1 px-4 mt-2"><span class="fw-bold">${value.name}</span><div class=" empStateTop mt-2 position-relative" ><div  class="userGreen py-1   text-center text-white" style="width:${(parseFloat(value.avg_rate, 2))}%"></div> <span class="avgUser position-absolute">${(parseFloat(value.avg_rate, 2))}%</span></div></div>`
+                            );
                         });
                         let lowestSection = $('.lowestSectionAll');
                         lowestSection.empty();
-                        $.each(lowest, function (key, value) {
-                            highestSection.append(`<div class="py-1 px-4 mt-2"> <span class="fw-bold">${value.name}</span><div class=" empStateDanger mt-2 position-relative" ><div class="bg-danger  py-1  text-center text-white" style="width:${(parseFloat(value.avg_rate, 2))}%"></div> <span class="avgUser position-absolute">${(parseFloat(value.avg_rate, 2))}%</span></div></div>`);
+                        $.each(lowest, function(key, value) {
+                            highestSection.append(
+                                `<div class="py-1 px-4 mt-2"> <span class="fw-bold">${value.name}</span><div class=" empStateDanger mt-2 position-relative" ><div class="bg-danger  py-1  text-center text-white" style="width:${(parseFloat(value.avg_rate, 2))}%"></div> <span class="avgUser position-absolute">${(parseFloat(value.avg_rate, 2))}%</span></div></div>`
+                            );
                         });
                     }
                 });

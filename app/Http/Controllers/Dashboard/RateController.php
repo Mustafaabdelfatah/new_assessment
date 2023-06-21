@@ -12,8 +12,10 @@ use App\Exports\RatesExport;
 use Illuminate\Http\Request;
 use App\Enums\UsersTypesEnums;
 use App\Exports\unRatesExport;
+use App\Models\AssessmentUser;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
 use Maatwebsite\Excel\Facades\Excel;
 
 class RateController extends Controller
@@ -72,7 +74,22 @@ class RateController extends Controller
 
     public function getRateDetails($assessment, $startDate, $endDate, $userId)
     {
-        if (auth()->user()->id != $userId) {
+
+
+        $managerId = auth()->user()->id; // Assuming the authenticated user is the manager
+        $userIdToCheck = $userId; // The user ID you want to check
+
+        $isUnderManager = AssessmentUser::whereHas('assessment', function ($query) use ($managerId) {
+            $query->where('manager_id', $managerId);
+        })
+        ->where('user_id', $userIdToCheck)
+        ->exists();
+        $isCurrentUserAdmin = Auth::user()->type->value === 'admin'; // Assuming 'admin' is the value for admin users
+
+
+        if (!$isUnderManager && $userIdToCheck != $managerId && !$isCurrentUserAdmin) {
+            // If the user is not under the manager's group of users and the user ID is not the manager's ID
+            // Abort with a "Not Found" response
             abort(404);
         }
         $firstMonthDate = Carbon::parse($startDate)->startOfQuarter();
@@ -80,28 +97,29 @@ class RateController extends Controller
         $thirdMonthDate = Carbon::parse($startDate)->startOfQuarter()->addMonths(2);
 
         $first_month = Rate::whereHas('assessment', function ($query) use ($assessment) {
-            $query->where('title', $assessment);
+            $query->where('slug', $assessment);
         })
             ->whereMonth('date', $firstMonthDate)
             ->where('user_id', $userId)
             ->with('assessment', 'answers')
             ->first();
         $second_month = Rate::whereHas('assessment', function ($query) use ($assessment) {
-            $query->where('title', $assessment);
+            $query->where('slug', $assessment);
         })
             ->whereMonth('date', $secondMonthDate)
             ->where('user_id', $userId)
             ->with('assessment', 'answers')
             ->first();
         $third_month = Rate::whereHas('assessment', function ($query) use ($assessment) {
-            $query->where('title', $assessment);
+            $query->where('slug', $assessment);
         })
             ->whereMonth('date', $thirdMonthDate)
             ->where('user_id', $userId)
             ->with('assessment', 'answers')
             ->first();
-        return view('livewire.rating.rate_details', get_defined_vars());
-    }
+            return view('dashboard.pages.rates.rates-details', get_defined_vars());
+
+     }
 
     /**
      * @param Request $request

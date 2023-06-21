@@ -129,6 +129,7 @@ class UserController extends Controller
         $thirdQuarter = $this->userService->getQuarterlyAverageRates($id, Carbon::parse('July 1')->startOfQuarter(), Carbon::parse('September 30')->endOfQuarter());
         $lastQuarter = $this->userService->getQuarterlyAverageRates($id, Carbon::parse('October 1')->startOfQuarter(), Carbon::parse('December 31')->endOfQuarter());
         $user = User::with('assessment')->whereNot('type', UsersTypesEnums::ADMIN)->find($id);
+
         return view('dashboard.pages.users.show-user', get_defined_vars());
     }
 

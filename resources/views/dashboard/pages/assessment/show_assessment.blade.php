@@ -5,6 +5,37 @@
     .btn-light-primary:hover a {
             color: #f2f2f2 !important
         }
+        .card:hover .Rate-icons-container {
+        opacity: 1;
+        transform: translateY(0);
+        }
+
+        .Rate-icons-container {
+        position: absolute;
+        right: -26px;
+        opacity: 0;
+        transform: translateY(20px);
+        transition: opacity 0.5s ease, transform 0.5s ease;
+        }
+    .Rate-icons {
+    display: inline-grid;
+    }
+    .Rate-icons span img{
+        width: 20px;
+        padding: 5px 0
+    }
+/*
+
+.Rate-icons span {
+  display: inline-block;
+  margin: 0 5px;
+  opacity: 0.5;
+  transition: opacity 0.3s ease;
+}
+
+.Rate-icons span:hover {
+  opacity: 1;
+} */
     </style>
 @endpush
 @section('content')
@@ -195,7 +226,19 @@
                                         <!--begin::Card-->
                                         <div class="card ">
                                             <div class="card-header border-0 pt-9">
-
+                                                {{-- <div class="Rate-icons-container">
+                                                    <div class="Rate-icons">
+                                                        <span>
+                                                            <img src="{{asset('icons/file.png')}}" alt="">
+                                                        </span>
+                                                        <span>
+                                                            <img src="{{asset('icons/send.png')}}" alt="">
+                                                        </span>
+                                                        <span>
+                                                            <img src="{{asset('icons/check-list.png')}}" alt="">
+                                                        </span>
+                                                    </div>
+                                                </div> --}}
                               <!-------------- calcutate the  percentage of answers------------>
                                         @php
                                         $questions=$assessment->questions()->count();
@@ -219,8 +262,7 @@
                                                     <!--begin::Avatar-->
                                                     <div class="symbol symbol-50px w-50px bg-light">
                                                         @if ((auth()->user()->id == $assessment->manager_id) && (!$rate || $rate->status->value == 'pending'))
-                                                        {{-- @if ((auth()->user()->id == $assessment->manager_id)&&($rate?->status?->value == 'pending')) --}}
-                                                            <button type="button"
+                                                             <button type="button"
                                                                     class=" rate_assessment badge badge-primary fw-bold me-auto px-4 py-3
                                                                     @if($rate?->status?->value == 'published')
                                                                         d-none
@@ -281,32 +323,7 @@
                                                     class="fw-semibold text-gray-400 mb-6">{{$user->position->title}}</div>
                                                 <!--end::Position-->
                                                 <!--begin::Info-->
-                                                <div class="d-flex flex-center flex-wrap">
-                                                    <!--begin::Stats-->
-                                                    <div
-                                                        class="border border-gray-300 border-dashed rounded min-w-80px py-3 px-4 mx-2 mb-3">
-                                                        <div class="fs-6 fw-bold text-gray-700">{{ $rate?->rate   }}%
-                                                        </div>
-                                                        <div class="fw-semibold text-gray-400">Rate</div>
-                                                    </div>
-                                                    <!--end::Stats-->
-                                                    <!--begin::Stats-->
-                                                    <div
-                                                        class="border border-gray-300 border-dashed rounded min-w-80px py-3 px-4 mx-2 mb-3">
-                                                        <div
-                                                            class="fs-6 fw-bold text-gray-700">{{$assessment->start_date->format('y-m-d')}}</div>
-                                                        <div class="fw-semibold text-gray-400">Date</div>
-                                                    </div>
-                                                    <!--end::Stats-->
-                                                    <!--begin::Stats-->
-                                                    <div
-                                                        class="border border-gray-300 border-dashed rounded min-w-80px py-3 px-4 mx-2 mb-3">
-                                                        <div
-                                                            class="fs-6 fw-bold text-gray-700">{{$assessment?->manager?->name}}</div>
-                                                        <div class="fw-semibold text-gray-400">Manager Name</div>
-                                                    </div>
-                                                    <!--end::Stats-->
-                                                </div>
+
                                                 <!--end::Info-->
                                             </div>
                                             <!--end::Card body-->

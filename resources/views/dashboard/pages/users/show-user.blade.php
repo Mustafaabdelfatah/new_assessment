@@ -14,7 +14,7 @@
 
                 <div class="me-7 mb-4">
                     <div class="symbol symbol-100px symbol-lg-160px symbol-fixed position-relative">
-                        <img src="{{ $user->image_path }}" alt="image" />
+                        <img src="{{ $user?->image_path }}" alt="image" />
                         <div
                             class="position-absolute translate-middle bottom-0 start-100 mb-6 bg-success rounded-circle border border-4 border-body h-20px w-20px">
                         </div>
@@ -31,7 +31,7 @@
                             <!--begin::Name-->
                             <div class="d-flex align-items-center mb-2">
                                 <a href="#"
-                                    class="text-gray-900 text-hover-primary fs-2 fw-bold me-1">{{ $user->name }}</a>
+                                    class="text-gray-900 text-hover-primary fs-2 fw-bold me-1">{{ $user?->name }}</a>
                                 <a href="#">
                                     <!--begin::Svg Icon | path: icons/duotune/general/gen026.svg-->
                                     <span class="svg-icon svg-icon-1 svg-icon-primary"><svg
@@ -66,7 +66,7 @@
                                                 fill="currentColor" />
                                         </svg>
                                     </span>
-                                    <!--end::Svg Icon--> {{ $user->type }}
+                                    <!--end::Svg Icon--> {{ $user?->type }}
                                 </a>
                                 {{-- @dump($user) --}}
 
@@ -83,14 +83,13 @@
                                                 fill="currentColor" />
                                         </svg>
                                     </span>
-                                    <!--end::Svg Icon--> {{ $user->email }}
+                                    <!--end::Svg Icon--> {{ $user?->email }}
                                     <!--end::Svg Icon-->
                                 </a>
                             </div>
                             <!--end::Info-->
                         </div>
                         <!--end::User-->
-
                         <!--begin::Actions-->
 
                         {{-- <div class="d-flex my-4">
@@ -125,80 +124,104 @@
                 </div>
                 <!--end::Info-->
             </div>
-            @if(!$firstQuarter->isEmpty())
-            <div class="d-flex flex-wrap flex-stack mb-6">
-                <!--begin::Title-->
-                <h3 class="fw-bold my-2">
-                    First Quarter Of Year
-                    <span class="fs-6 text-gray-400 fw-semibold ms-1">(From January 1 To March 31)</span>
-                </h3>
-                <!--end::Title-->
-            </div>
-            <div class="row g-6 g-xl-9">
-                <!--begin::Col-->
-                @foreach ($firstQuarter as $firstQuarter )
-                <div class="col-sm-6 col-xl-4">
-                    <!--begin::Card-->
-                    <div class="card h-100">
-                        <!--begin::Card header-->
-                        <div class="card-header flex-nowrap border-0 pt-9">
-                            <!--begin::Card title-->
-                            <div class="card-title m-0">
-                                <!--begin::Icon-->
-                                {{-- <div class="symbol symbol-45px w-45px bg-light me-5">
+            @if (!$firstQuarter->isEmpty())
+                <div class="d-flex flex-wrap flex-stack mb-6">
+                    <!--begin::Title-->
+                    <h3 class="fw-bold my-2">
+                        First Quarter Of Year
+                        <span class="fs-6 text-gray-400 fw-semibold ms-1">(From January 1 To March 31)</span>
+                    </h3>
+                    <!--end::Title-->
+                </div>
+                <div class="row g-6 g-xl-9">
+                    <!--begin::Col-->
+                    @foreach ($firstQuarter as $firstQuarter)
+                        <div class="col-sm-6 col-xl-4">
+                            <!--begin::Card-->
+                            <div class="card h-100">
+                                <!--begin::Card header-->
+                                <div class="card-header flex-nowrap border-0 pt-9">
+                                    <!--begin::Card title-->
+                                    <div class="card-title m-0">
+                                        <!--begin::Icon-->
+                                        {{-- <div class="symbol symbol-45px w-45px bg-light me-5">
                                     <img src="/metronic8/demo41/assets/media/svg/brand-logos/twitch.svg" alt="image" class="p-3" />
                                 </div> --}}
-                                <!--end::Icon-->
-                                <!--begin::Title-->
-                                <span  class="fs-4 fw-semibold text-hover-primary text-gray-600 m-0"> Avg Rate In {{$firstQuarter->title}} </span>
-                                <!--end::Title-->
-                            </div>
-                            <!--end::Card title-->
-                            <!--begin::Card toolbar-->
-                            <div class="card-toolbar m-0">
-                                <!--begin::Menu-->
-                                <button type="button" class="btn btn-clean btn-sm btn-icon btn-icon-primary btn-active-light-primary me-n3" data-kt-menu-trigger="click" data-kt-menu-placement="bottom-end">
-                                    <i class="ki-outline ki-element-plus fs-3 text-primary"></i>
-                                </button>
-                                <!--begin::Menu 3-->
+                                        <!--end::Icon-->
+                                        <!--begin::Title-->
+                                        <span class="fs-4 fw-semibold text-hover-primary text-gray-600 m-0"> Avg Rate In
+                                            {{ $firstQuarter->slug }} </span>
+                                        <!--end::Title-->
+                                    </div>
+                                    <!--end::Card title-->
+                                    <!--begin::Card toolbar-->
+                                    <div class="card-toolbar m-0">
+                                        <!--begin::Menu-->
+                                        <button type="button"
+                                            class="btn btn-clean btn-sm btn-icon btn-icon-primary btn-active-light-primary me-n3"
+                                            data-kt-menu-trigger="click" data-kt-menu-placement="bottom-end">
+                                        </button>
+                                        <!--begin::Menu 3-->
 
-                                <!--end::Menu 3-->
-                                <!--end::Menu-->
-                            </div>
-                            <!--end::Card toolbar-->
-                        </div>
-                        <!--end::Card header-->
-                        <!--begin::Card body-->
-                        <div class="card-body d-flex flex-column px-9 pt-6 pb-8">
-                            <!--begin::Heading-->
-                            <div class="fs-2tx fw-bold mb-3">
-                                {{number_format($firstQuarter->average_rate, 2)}} %
-                            </div>
-                            <!--end::Heading-->
-                            <!--begin::Stats-->
-                            <div class="d-flex align-items-center flex-wrap mb-5 mt-auto fs-6">
-                                <i class="ki-outline ki-Up-right fs-3 me-1 text-danger"></i>
-                                <!--begin::Number-->
-
-                                <div class="fw-bold text-danger me-2">
-                                    {{-- <a href="{{ route('admin.rate.details', ['assessment' => $firstQuarter->title, 'start_date' => 'January 1', 'end_date' => 'March 31']) }}" class="btn btn-primary btn-sm">Rate Details</a> --}}
-                                    <a href="{{ route('admin.rate.details', ['assessment' => $firstQuarter->title,   'startdate' => 'January 1', 'enddate' => 'March 31', 'userid' => $user->id]) }}" class="btn btn-primary btn-sm">Rate Details</a>
-                                    {{-- <a href="{{ route('admin.rate.details', ['assessment' => $firstQuarter->title, 'month' => '02']) }}" class="btn btn-primary btn-sm">Rate Details</a> --}}
+                                        <!--end::Menu 3-->
+                                        <!--end::Menu-->
+                                    </div>
+                                    <!--end::Card toolbar-->
                                 </div>
-                                <!--end::Number-->
-                            </div>
-                            <!--end::Stats-->
-                            <!--begin::Indicator-->
+                                <!--end::Card header-->
+                                <!--begin::Card body-->
+                                <div class="card-body d-flex flex-column px-9 pt-6 pb-8">
+                                    <!--begin::Heading-->
+                                    <div class="fs-2tx fw-bold mb-3">
+                                        {{ number_format($firstQuarter->average_rate, 2) }} %
+                                    </div>
+                                    <!--end::Heading-->
+                                    <!--begin::Stats-->
+                                    <div class="d-flex align-items-center flex-wrap mb-5 mt-auto fs-6">
+                                        <i class="ki-outline ki-Up-right fs-3 me-1 text-danger"></i>
+                                        <!--begin::Number-->
 
-                            <!--end::Indicator-->
+                                        <div class="fw-bold text-danger me-2">
+                                            {{-- <a href="{{ route('admin.rate.details', ['assessment' => $firstQuarter->title, 'start_date' => 'January 1', 'end_date' => 'March 31']) }}" class="btn btn-primary btn-sm">Rate Details</a> --}}
+                                            <a href="{{ route('admin.rate.details', ['assessment' => $firstQuarter->slug, 'startdate' => 'January 1', 'enddate' => 'March 31', 'userid' => $user->id]) }}"
+                                                class="btn btn-primary btn-sm">Rate Details</a>
+                                            {{-- <a href="{{ route('admin.rate.details', ['assessment' => $firstQuarter->title, 'month' => '02']) }}" class="btn btn-primary btn-sm">Rate Details</a> --}}
+                                        </div>
+                                        <!--end::Number-->
+                                    </div>
+                                    <!--end::Stats-->
+                                    <!--begin::Indicator-->
+
+                                    <!--end::Indicator-->
+                                </div>
+                                <!--end::Card body-->
+                            </div>
+                            <!--end::Card-->
                         </div>
-                        <!--end::Card body-->
-                    </div>
-                    <!--end::Card-->
+                    @endforeach
                 </div>
-                @endforeach
-            </div>
             @endif
+
+            <div class="col-xl-12 mb-xl-10  " style="margin-top: 20px">
+                <div class="card card-flush h-xl-100">
+                    <!--begin::Header-->
+                    <div class="card-header py-7 d-block">
+                        <!--begin::Statistics-->
+                        <div class="m-0">
+                            <!--begin::Heading-->
+                            <div class="d-flex align-items-center mb-2">
+                            </div>
+                        </div>
+                    </div>
+                    <!--end::Header-->
+
+                    <!--begin::Body-->
+                    <div class="card-body pt-0 pb-1">
+                        <div id="chart-container"></div>
+
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 @endsection
