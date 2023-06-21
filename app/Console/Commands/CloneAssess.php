@@ -35,19 +35,19 @@ class CloneAssess extends Command
     {
 
         $assesss1 = Assessment::with('users', 'questions','actions')->where(['type' => 'monthly'])
-            ->whereMonth('start_date', Carbon::today()->subMonths(1))
+            ->whereMonth('start_date', Carbon::today()->subMonths(2))
             ->get();
 
         $assesss3 = Assessment::with('users', 'questions','actions')->where(['type' => 'three_month'])
-            ->whereMonth('start_date', Carbon::today()->subMonths(3))
+            ->whereMonth('start_date', Carbon::today()->subMonths(4))
             ->get();
 
         $assesss6 = Assessment::with('users', 'questions','actions')->where(['type' => 'six_month'])
-            ->whereMonth('start_date', Carbon::today()->subMonths(6))
+            ->whereMonth('start_date', Carbon::today()->subMonths(7))
             ->get();
 
         $assesss1y = Assessment::with('users', 'questions','actions')->where(['type' => '1_year'])
-            ->whereMonth('start_date', Carbon::today()->subMonths(12))
+            ->whereMonth('start_date', Carbon::today()->subMonths(13))
             ->get();
 
         $all = Collection::make();
@@ -68,8 +68,8 @@ class CloneAssess extends Command
                 'type' => $assess->type,
                 'time' => $assess->time,
                 'slug' =>  strtolower(str_replace(' ', '-', $assess->title)),
-                'start_date' => Carbon::today()->startOfMonth(),
-                'to_date' => Carbon::today()->endOfMonth(),
+                'start_date' => Carbon::today()->subMonth()->startOfMonth(),
+                'to_date' => Carbon::today()->subMonth()->endOfMonth(),
                 'status' => $assess->status,
                 'manager_id' => $assess->manager_id,
             ]);
