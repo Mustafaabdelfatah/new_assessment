@@ -2,6 +2,15 @@
 @section('title', 'Show Assessment')
 @push('css')
     <style>
+        .collect p {
+            padding: 1px 0;
+            cursor: pointer;
+        }
+
+        .collect p img {
+            width: 22px;
+        }
+
         .btn-light-primary:hover a {
             color: #f2f2f2 !important
         }
@@ -28,18 +37,7 @@
             padding: 5px 0
         }
 
-        /*
-
-    .Rate-icons span {
-      display: inline-block;
-      margin: 0 5px;
-      opacity: 0.5;
-      transition: opacity 0.3s ease;
-    }
-
-    .Rate-icons span:hover {
-      opacity: 1;
-    } */
+        .rate_assessment {}
     </style>
 @endpush
 @section('content')
@@ -266,106 +264,105 @@
                                                         value="{{ $percentage_of_answer }}"id="customRange1"><br><br>
                                                 @endif
 
-<<<<<<< HEAD
+                                                <!-------------------show buttons  on card------------->
+                                                <div class="collect" style="position: absolute; display:grid; right:-26px"
+                                                    id="collection-{{ $user->id }}">
+                                                    @if (auth()->user()->id == $assessment->manager_id && (!$rate || $rate->status->value == 'pending'))
+                                                        <p class="rate_assessment
+                                                    @if ($rate?->status?->value == 'published') d-none @endif"
+                                                            title="Rate"
+                                                            data-route="{{ route('admin.assessment.rate-assessment') }}"
+                                                            data-user="{{ $user?->id }}"
+                                                            data-rate="{{ $rate?->id }}"
+                                                            data-assessment_id="{{ $assessment?->id }}"
+                                                            data-user-name="{{ $user?->name }}"
+                                                            data-user-position="{{ $user?->position?->title }}"
+                                                            data-user-rate="{{ $rate?->rate }}">
+                                                            <img src="{{ asset('icons/check-list.png') }}"
+                                                                alt="">
+                                                        </p>
+                                                    @endif
 
-
-
-                                      <!-------------------show buttons  on card------------->
-                                      <div id="collection-{{ $user->id }}" >
-                                        <!--begin::Card Title-->
-                                        <div class="card-title m-0" >
-                                            <!--begin::Avatar-->
-                                            <div class="symbol symbol-50px w-50px bg-light" id="show-{{ $user->id }}">
-                                                @if ((auth()->user()->id == $assessment->manager_id) && (!$rate || $rate->status->value == 'pending'))
-                                                <button type="button"
-                                                class="rate_assessment badge badge-primary fw-bold me-auto px-4 py-3
-                                                @if($rate?->status?->value == 'published')
-                                                    d-none
-                                                @endif"
-                                                data-route="{{route('admin.assessment.rate-assessment')}}"
-                                                data-user="{{$user?->id}}"
-                                                data-rate="{{$rate?->id}}"
-                                                data-assessment_id="{{$assessment?->id}}"
-                                                data-user-name="{{$user?->name}}"
-                                                data-user-position="{{ $user?->position?->title }}"
-                                                data-user-rate="{{ $rate?->rate }}"
-                                                style="border:none"
-                                            >
-
-
-                                                Rate Assessment
-                                            </button>
-                                                @endif
-=======
-                                                <!--begin::Card Title-->
-                                                <div class="card-title m-0">
-                                                    <!--begin::Avatar-->
-                                                    <div class="symbol symbol-50px w-50px bg-light">
-                                                        @if (auth()->user()->id == $assessment->manager_id && (!$rate || $rate->status->value == 'pending'))
-                                                            <button type="button"
-                                                                class=" rate_assessment badge badge-primary fw-bold me-auto px-4 py-3
-                                                                    @if ($rate?->status?->value == 'published') d-none @endif"
-                                                                data-route="{{ route('admin.assessment.rate-assessment') }}"
-                                                                data-user="{{ $user?->id }}"
-                                                                data-rate="{{ $rate?->id }}"
-                                                                data-assessment_id="{{ $assessment?->id }}"
-                                                                data-user-name="{{ $user?->name }}"
-                                                                data-user-position="{{ $user?->position?->title }}"
-                                                                data-user-rate="{{ $rate?->rate }}" style="border:none">
-                                                                Rate Assessment
-                                                            </button>
-                                                        @endif
-                                                    </div>
-                                                    <!--end::Avatar-->
-                                                </div>
-                                                <!--end::Car Title-->
-                                                <!--begin::Card toolbar-->
-                                                <div class="card-toolbar">
                                                     @if ($rate)
                                                         @if ($rate->status->value == 'pending')
+                                                            <p class="publishModal" data-rate-id="{{ $rate->id }}"
+                                                                title="Punlish">
+                                                                <img src="{{ asset('icons/send.png') }}" alt="">
+                                                            </p>
+                                                        @endif
+
+                                                        <p class="rate_details" data-rate-id="{{ $rate->id }}"
+                                                            title="Details"
+                                                            data-route="{{ route('admin.rate.rate-details') }}">
+                                                            <img src="{{ asset('icons/file.png') }}" alt="">
+                                                        </p>
+                                                    @endif
+                                                    <!--begin::Card Title-->
+                                                    {{-- <div class="card-title m-0">
+                                                        <!--begin::Avatar-->
+                                                        <div class="symbol symbol-50px w-50px bg-light"
+                                                            id="show-{{ $user->id }}">
+                                                            @if (auth()->user()->id == $assessment->manager_id && (!$rate || $rate->status->value == 'pending'))
+                                                                <button type="button"
+                                                                    class="rate_assessment badge badge-primary fw-bold me-auto px-4 py-3
+                                                            @if ($rate?->status?->value == 'published') d-none @endif"
+                                                                    data-route="{{ route('admin.assessment.rate-assessment') }}"
+                                                                    data-user="{{ $user?->id }}"
+                                                                    data-rate="{{ $rate?->id }}"
+                                                                    data-assessment_id="{{ $assessment?->id }}"
+                                                                    data-user-name="{{ $user?->name }}"
+                                                                    data-user-position="{{ $user?->position?->title }}"
+                                                                    data-user-rate="{{ $rate?->rate }}"
+                                                                    style="border:none">
+                                                                    Rate Assessment
+                                                                </button>
+                                                            @endif
+                                                            <!--begin::Card Title-->
+                                                            <!--end::Car Title-->
+                                                            <!--begin::Card toolbar-->
+                                                            <div class="card-toolbar">
+                                                                @if ($rate)
+                                                                    @if ($rate->status->value == 'pending')
+                                                                        <button type="button"
+                                                                            class="btn publishModal  btn-sm btn-success d-inline-block mx-1"
+                                                                            data-rate-id="{{ $rate->id }}">
+                                                                            publish
+                                                                        </button>
+                                                                    @endif
+                                                                    <button type="button"
+                                                                        class="btn rate_details  btn-sm btn-success d-inline-block mx-1"
+                                                                        data-rate-id="{{ $rate->id }}"
+                                                                        data-route="{{ route('admin.rate.rate-details') }}">
+                                                                        Rate Details
+                                                                    </button>
+                                                                @endif
+                                                            </div>
+                                                            <!--end::Card toolbar-->
+                                                        </div>
+                                                        <!--end::Avatar-->
+                                                    </div>
+                                                    <!--end::Car Title-->
+                                                    <!--begin::Card toolbar-->
+                                                    <div class="card-toolbar" id="show-{{ $user->id }}">
+                                                        @if ($rate)
+                                                            @if ($rate->status->value == 'pending')
+                                                                <button type="button"
+                                                                    class="btn publishModal  btn-sm btn-success d-inline-block mx-1"
+                                                                    data-rate-id="{{ $rate->id }}">
+                                                                    publish
+                                                                </button>
+                                                            @endif
                                                             <button type="button"
-                                                                class="btn publishModal  btn-sm btn-success d-inline-block mx-1"
-                                                                data-rate-id="{{ $rate->id }}">
-                                                                publish
+                                                                class="btn rate_details  btn-sm btn-success d-inline-block mx-1"
+                                                                data-rate-id="{{ $rate->id }}"
+                                                                data-route="{{ route('admin.rate.rate-details') }}">
+                                                                Rate Details
                                                             </button>
                                                         @endif
-                                                        <button type="button"
-                                                            class="btn rate_details  btn-sm btn-success d-inline-block mx-1"
-                                                            data-rate-id="{{ $rate->id }}"
-                                                            data-route="{{ route('admin.rate.rate-details') }}">
-                                                            Rate Details
-                                                        </button>
-                                                    @endif
+                                                    </div> --}}
+                                                    <!--end::Card toolbar-->
                                                 </div>
-                                                <!--end::Card toolbar-->
->>>>>>> 280dbbabc0000cfcb912ff99fbe89d4b0106fee1
                                             </div>
-                                            <!--end::Avatar-->
-                                        </div>
-                                        <!--end::Car Title-->
-                                        <!--begin::Card toolbar-->
-                                        <div class="card-toolbar" id="show-{{ $user->id }}" >
-                                            @if($rate)
-                                                @if($rate->status->value == 'pending')
-                                                    <button type="button"
-                                                            class="btn publishModal  btn-sm btn-success d-inline-block mx-1"
-                                                            data-rate-id="{{$rate->id}}"
-                                                    >
-                                                       publish
-                                                    </button>
-                                                @endif
-                                                <button type="button"
-                                                        class="btn rate_details  btn-sm btn-success d-inline-block mx-1"
-                                                        data-rate-id="{{$rate->id}}"
-                                                        data-route="{{route('admin.rate.rate-details')}}"
-                                                >
-                                                    Rate Details
-                                                </button>
-                                            @endif
-                                        </div>
-                                        <!--end::Card toolbar-->
-                                    </div>
-                                                                                </div>
                                             <!--begin::Card body-->
                                             <div class="card-body d-flex flex-center flex-column pt-12 p-9">
                                                 <!--begin::Avatar-->
@@ -389,26 +386,29 @@
                                                     <!--begin::Stats-->
                                                     <div
                                                         class="border border-gray-300 border-dashed rounded min-w-80px py-3 px-4 mx-2 mb-3">
-                                                        <div class="fs-6 fw-bold text-gray-700">{{ $rate?->rate }}%
+                                                        <div class="fw-semibold text-gray-400">
+                                                            {{ $rate?->rate ? 'Rate ' : 'Not Rated' }}</div>
+
+                                                        <div class="fs-6 fw-bold text-gray-700">
+                                                            {{ $rate?->rate ? $rate?->rate . '%' : '' }}
                                                         </div>
-                                                        <div class="fw-semibold text-gray-400">Rate</div>
                                                     </div>
                                                     <!--end::Stats-->
                                                     <!--begin::Stats-->
-                                                    <div
+                                                    {{-- <div
                                                         class="border border-gray-300 border-dashed rounded min-w-80px py-3 px-4 mx-2 mb-3">
                                                         <div class="fs-6 fw-bold text-gray-700">
                                                             {{ $assessment->start_date->format('y-m-d') }}</div>
                                                         <div class="fw-semibold text-gray-400">Date</div>
-                                                    </div>
+                                                    </div> --}}
                                                     <!--end::Stats-->
                                                     <!--begin::Stats-->
-                                                    <div
+                                                    {{-- <div
                                                         class="border border-gray-300 border-dashed rounded min-w-80px py-3 px-4 mx-2 mb-3">
                                                         <div class="fs-6 fw-bold text-gray-700">
                                                             {{ $assessment?->manager?->name }}</div>
                                                         <div class="fw-semibold text-gray-400">Manager Name</div>
-                                                    </div>
+                                                    </div> --}}
                                                     <!--end::Stats-->
                                                 </div>
                                                 <!--end::Info-->
@@ -584,34 +584,29 @@
 @endsection
 
 @push('js')
-<<<<<<< HEAD
-    <script src="{{asset('assets/js/crud/table.js')}}"></script>
+    <script src="{{ asset('assets/js/crud/table.js') }}"></script>
 
 
 
     <!----------------------show button on card------------------------->
-    @foreach ($users as $user )
-    <script>
-        $(document).ready(function(){
-            $("#collection-{{ $user->id }}").hide();
+    @foreach ($users as $user)
+        <script>
+            $(document).ready(function() {
+                $("#collection-{{ $user->id }}").hide();
 
-            $("#show-buttons-{{ $user->id }}").hover(function(){
-                $("#collection-{{ $user->id }}").fadeIn(2000);
-            }, function(){
-                $("#collection-{{ $user->id }}").fadeOut(2000);
+                $("#show-buttons-{{ $user->id }}").hover(function() {
+                    $("#collection-{{ $user->id }}").fadeIn(500);
+                }, function() {
+                    $("#collection-{{ $user->id }}").fadeOut(500);
+                });
             });
-        });
-    </script>
-@endforeach
+        </script>
+    @endforeach
 
-    <script>
-
-        $(document).ready(function () {
-=======
-    <script src="{{ asset('assets/js/crud/table.js') }}"></script>
+    <script></script>
     <script>
         $(document).ready(function() {
->>>>>>> 280dbbabc0000cfcb912ff99fbe89d4b0106fee1
+
             let id;
             let clickedButton;
             let rateAssessment;
