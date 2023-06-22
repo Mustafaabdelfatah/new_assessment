@@ -17,6 +17,7 @@ class Kernel extends ConsoleKernel
     {
         // $schedule->command('inspire')->hourly();
         $schedule->command('clone:assess')->monthly();
+        $schedule->command('reminder:run')->daily();
     }
 
     /**

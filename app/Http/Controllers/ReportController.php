@@ -15,7 +15,8 @@ use Illuminate\Support\Facades\Auth;
 
 class ReportController extends Controller
 {
-    public function get_chart(Request $request){
+    public function get_chart(Request $request)
+    {
 
 
         $slug = $request->slug;
@@ -24,19 +25,20 @@ class ReportController extends Controller
         $assessIds = Assessment::where('slug', $slug)->pluck('id');
 
         $highestAvgRates = DB::table('rates')
-        ->where('status', 'published')
-        ->whereIn('assessment_id', $assessIds)
-        ->whereNotNull('rate')
-        ->groupBy('user_id')
-        ->select('user_id', 'users.name', DB::raw('AVG(rate) as avg_rate'))
-        ->join('users', 'users.id', '=', 'rates.user_id')
-        ->orderByDesc('avg_rate')
-        ->limit(5)
-        ->get();
+            ->where('status', 'published')
+            ->whereIn('assessment_id', $assessIds)
+            ->whereNotNull('rate')
+            ->groupBy('user_id')
+            ->select('user_id', 'users.name', DB::raw('AVG(rate) as avg_rate'))
+            ->join('users', 'users.id', '=', 'rates.user_id')
+            ->orderByDesc('avg_rate')
+            ->limit(5)
+            ->get();
 
         return response()->json(['data' => $highestAvgRates]);
 
     }
+
     public function index($month = null)
     {
         DB::statement('SET sql_mode = " "');
@@ -56,7 +58,6 @@ class ReportController extends Controller
         // }
 
         // dd($employeeNames , $rates);
-
 
 
         $user = auth()->user();
@@ -106,6 +107,8 @@ class ReportController extends Controller
             ->get();
 
         $month = $month ?? Carbon::today()->subMonth();
+        $empRates = [];
+        $empNames = [];
         if (auth()->user()->AssessmentManager()->count() >= 1) {
 
             $assessmentsIds = Assessment::where('manager_id', auth()->id())->whereMonth('start_date', Carbon::parse($month))->pluck('id')->toArray();
@@ -114,24 +117,38 @@ class ReportController extends Controller
                 ->toArray();
 
 
-            $RatedUsers = Rate::whereIn('assessment_id',$assessmentsIds)->where('status','published')->orderBy('rate', 'desc')->get();
+            $RatedUsers = Rate::whereIn('assessment_id', $assessmentsIds)->where('status', 'published')->orderBy('rate', 'desc')->get();
+
+            $assessIds = auth()->user()->AssessmentManager()->pluck('id')->toArray();
+            $userIds = AssessmentUser::whereIn('assessment_id', $assessIds)->pluck('user_id')->toArray();
+
+
+            $averageRates = Rate::with('assessment','user')->whereIn('user_id', $userIds)
+                ->groupBy('user_id')
+                ->select('id', 'assessment_id','user_id', DB::raw('avg(rate) as average_rate'))
+
+                ->get();
+
+            foreach ($averageRates as $rate){
+                $empNames[] = $rate?->user?->name;
+                $empRates[] = number_format($rate?->average_rate,2);
+            }
+
         }
 
 
         $assessmentData = Rate::where('user_id', auth()->user()->id)
-        ->with('assessment')
-        ->get()
-        ->map(function ($item) {
-            return [
-                'title' => $item->assessment->title,
-                'rates' => [$item->rate] // Assuming rate is a single value
-            ];
-        });
+            ->with('assessment')
+            ->get()
+            ->map(function ($item) {
+                return [
+                    'title' => $item->assessment->title,
+                    'rates' => [$item->rate] // Assuming rate is a single value
+                ];
+            });
 
         return view('layout.master', get_defined_vars());
     }
-
-
 
 
     public function get_dates(Request $request)
