@@ -11,6 +11,7 @@ use App\Models\Position;
 use App\Models\Question;
 use App\Models\Rate;
 use App\Models\RateAnswer;
+use App\Models\Setting;
 use App\Models\User;
 use App\Repositories\PositionTreeRepositry;
 use App\Services\AssessmentService;
@@ -40,6 +41,8 @@ class AssessmentController extends Controller
      */
     public function index()
     {
+        $deadline = Setting::where('slug', 'deadline')->first()?->desc;
+
         $PendingAssessment = $this->assessmentService->getPendingAssessments();
         $assessments = $this->assessmentService->index();
         return view('dashboard.pages.assessment.index', [
@@ -48,18 +51,29 @@ class AssessmentController extends Controller
             'users' => User::select('id', 'name')->where('type', '!=', UsersTypesEnums::ADMIN)->get(),
             'positions' => Position::select('id', 'title')->get(),
             'categories' => Category::select('id', 'name')->get(),
+            'deadline' => $deadline
         ]);
     }
 
-    /**
-     * @param id $id , title
-     * @return Application|Factory|View
-     */
+
     public function showAssessment($id, $title)
     {
+
+        $deadline = Setting::where('slug', 'deadline')->first()?->desc;
+
+
         if (auth()->user()->AssessmentManager()->count() == 0 && auth()->user()->type == UsersTypesEnums::EMPLOYEE) {
             abort(404);
         }
+
+        $assessment = Assessment::find($id);
+        $assessmentDate = Carbon::parse($assessment->start_date)->addDays($deadline);
+        $assessmentDate2 = Carbon::parse(Carbon::today());
+
+        if ($assessmentDate2->gt($assessmentDate) && $assessment->status == 'active') {
+            abort(403);
+        }
+
         $dateByMonth = $this->assessmentService->getDateByMonth($title);
         $assessment = $this->assessmentService->getAssessmentById($id);
         $users = $this->assessmentService->getAssessmentUsersPaginated($assessment);

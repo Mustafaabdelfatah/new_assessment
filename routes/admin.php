@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\ReportController;
 use App\Http\Controllers\SettingController;
+use App\Models\Setting;
 use Carbon\Carbon;
 use App\Models\Assessment;
 use App\Http\Controllers\AdminAuth;
@@ -17,7 +18,16 @@ use App\Http\Controllers\Auth\ForgotPasswordController;
 use App\Http\Controllers\Dashboard\AssessmentController;
 
 
+Route::get('tstData', function () {
+    $deadline = Setting::where('slug', 'deadline')->first()?->desc;
+    $date = Carbon::now()->subDays($deadline);
+    $assessments = Assessment::whereDate('start_date', '<', $date)->where('status', 'active')->get();
+    dd($assessments);
 
+//    foreach ($assessments as $assessment) {
+//
+//    }
+});
 
 Route::get('clone', function () {
     $assesss1 = Assessment::with('users', 'questions', 'actions')->where(['type' => 'monthly'])
