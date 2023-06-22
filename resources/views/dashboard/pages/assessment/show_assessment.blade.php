@@ -227,7 +227,8 @@
                                     @endphp
                                     <div class="col-md-6 col-xxl-4">
                                         <!--begin::Card-->
-                                        <div class="card ">
+                                        <div class="card" id="show-buttons-{{ $user->id }}">
+
                                             <div class="card-header border-0 pt-9">
                                                 {{-- <div class="Rate-icons-container">
                                                     <div class="Rate-icons">
@@ -265,6 +266,37 @@
                                                         value="{{ $percentage_of_answer }}"id="customRange1"><br><br>
                                                 @endif
 
+<<<<<<< HEAD
+
+
+
+                                      <!-------------------show buttons  on card------------->
+                                      <div id="collection-{{ $user->id }}" >
+                                        <!--begin::Card Title-->
+                                        <div class="card-title m-0" >
+                                            <!--begin::Avatar-->
+                                            <div class="symbol symbol-50px w-50px bg-light" id="show-{{ $user->id }}">
+                                                @if ((auth()->user()->id == $assessment->manager_id) && (!$rate || $rate->status->value == 'pending'))
+                                                <button type="button"
+                                                class="rate_assessment badge badge-primary fw-bold me-auto px-4 py-3
+                                                @if($rate?->status?->value == 'published')
+                                                    d-none
+                                                @endif"
+                                                data-route="{{route('admin.assessment.rate-assessment')}}"
+                                                data-user="{{$user?->id}}"
+                                                data-rate="{{$rate?->id}}"
+                                                data-assessment_id="{{$assessment?->id}}"
+                                                data-user-name="{{$user?->name}}"
+                                                data-user-position="{{ $user?->position?->title }}"
+                                                data-user-rate="{{ $rate?->rate }}"
+                                                style="border:none"
+                                            >
+
+
+                                                Rate Assessment
+                                            </button>
+                                                @endif
+=======
                                                 <!--begin::Card Title-->
                                                 <div class="card-title m-0">
                                                     <!--begin::Avatar-->
@@ -306,7 +338,34 @@
                                                     @endif
                                                 </div>
                                                 <!--end::Card toolbar-->
+>>>>>>> 280dbbabc0000cfcb912ff99fbe89d4b0106fee1
                                             </div>
+                                            <!--end::Avatar-->
+                                        </div>
+                                        <!--end::Car Title-->
+                                        <!--begin::Card toolbar-->
+                                        <div class="card-toolbar" id="show-{{ $user->id }}" >
+                                            @if($rate)
+                                                @if($rate->status->value == 'pending')
+                                                    <button type="button"
+                                                            class="btn publishModal  btn-sm btn-success d-inline-block mx-1"
+                                                            data-rate-id="{{$rate->id}}"
+                                                    >
+                                                       publish
+                                                    </button>
+                                                @endif
+                                                <button type="button"
+                                                        class="btn rate_details  btn-sm btn-success d-inline-block mx-1"
+                                                        data-rate-id="{{$rate->id}}"
+                                                        data-route="{{route('admin.rate.rate-details')}}"
+                                                >
+                                                    Rate Details
+                                                </button>
+                                            @endif
+                                        </div>
+                                        <!--end::Card toolbar-->
+                                    </div>
+                                                                                </div>
                                             <!--begin::Card body-->
                                             <div class="card-body d-flex flex-center flex-column pt-12 p-9">
                                                 <!--begin::Avatar-->
@@ -525,9 +584,34 @@
 @endsection
 
 @push('js')
+<<<<<<< HEAD
+    <script src="{{asset('assets/js/crud/table.js')}}"></script>
+
+
+
+    <!----------------------show button on card------------------------->
+    @foreach ($users as $user )
+    <script>
+        $(document).ready(function(){
+            $("#collection-{{ $user->id }}").hide();
+
+            $("#show-buttons-{{ $user->id }}").hover(function(){
+                $("#collection-{{ $user->id }}").fadeIn(2000);
+            }, function(){
+                $("#collection-{{ $user->id }}").fadeOut(2000);
+            });
+        });
+    </script>
+@endforeach
+
+    <script>
+
+        $(document).ready(function () {
+=======
     <script src="{{ asset('assets/js/crud/table.js') }}"></script>
     <script>
         $(document).ready(function() {
+>>>>>>> 280dbbabc0000cfcb912ff99fbe89d4b0106fee1
             let id;
             let clickedButton;
             let rateAssessment;
