@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Dashboard;
 
+use App\Jobs\PublishedRateJob;
 use Carbon\Carbon;
 use App\Models\Rate;
 use App\Models\User;
@@ -67,6 +68,7 @@ class RateController extends Controller
     {
         return Excel::download(new RatesExport($month), 'rated-employee.xlsx');
     }
+
     public function export_unrate($month)
     {
         return Excel::download(new unRatesExport($month), 'unrated-employee.xlsx');
@@ -82,8 +84,8 @@ class RateController extends Controller
         $isUnderManager = AssessmentUser::whereHas('assessment', function ($query) use ($managerId) {
             $query->where('manager_id', $managerId);
         })
-        ->where('user_id', $userIdToCheck)
-        ->exists();
+            ->where('user_id', $userIdToCheck)
+            ->exists();
         $isCurrentUserAdmin = Auth::user()->type->value === 'admin'; // Assuming 'admin' is the value for admin users
 
 
@@ -117,9 +119,9 @@ class RateController extends Controller
             ->where('user_id', $userId)
             ->with('assessment', 'answers')
             ->first();
-            return view('dashboard.pages.rates.rates-details', get_defined_vars());
+        return view('dashboard.pages.rates.rates-details', get_defined_vars());
 
-     }
+    }
 
     /**
      * @param Request $request
@@ -260,15 +262,23 @@ class RateController extends Controller
     {
         DB::beginTransaction();
         try {
-            $rate = Rate::find($id);
+            $rate = Rate::with('assessment')->find(67);
+
 
             if ($rate) {
                 $rate->update(['status' => 'published']);
+
             } else {
                 throw new \Exception('Rate not found');
             }
 
+            try {
+                dispatch(new PublishedRateJob($rate->user, $rate));
+            } catch (\Exception $e) {
+
+            }
             DB::commit();
+
 
             return response()->json([
                 'success' => true,

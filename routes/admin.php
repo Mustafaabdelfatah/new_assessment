@@ -2,7 +2,11 @@
 
 use App\Http\Controllers\ReportController;
 use App\Http\Controllers\SettingController;
+use App\Jobs\PublishedRateJob;
+use App\Jobs\SendUserReminderJob;
+use App\Models\Rate;
 use App\Models\Setting;
+use App\Models\User;
 use Carbon\Carbon;
 use App\Models\Assessment;
 use App\Http\Controllers\AdminAuth;
@@ -19,10 +23,32 @@ use App\Http\Controllers\Dashboard\AssessmentController;
 
 
 Route::get('tstData', function () {
-    $deadline = Setting::where('slug', 'deadline')->first()?->desc;
-    $date = Carbon::now()->subDays($deadline);
-    $assessments = Assessment::whereDate('start_date', '<', $date)->where('status', 'active')->get();
-    dd($assessments);
+
+
+
+
+
+//    $reminder = Setting::where('slug', 'reminder_before')->first()?->desc;
+//    $day = Carbon::today()->addMonth()->startOfMonth()->subDays($reminder);
+//    $dateToCompare = Carbon::parse($day);
+//    $today = Carbon::today();
+//
+//    $isSameDay = $today->isSameDay($dateToCompare);
+//    if ($isSameDay) {
+//        $assessments = Assessment::whereMonth('start_date', Carbon::today())->get();
+//        foreach ($assessments as $assess) {
+//            dispatch(new SendUserReminderJob($assess->manager, $assess->title,$reminder));
+//        }
+//    }
+
+//    $managerIds = Assessment::groupBy('manager_id')->where('start_date', Carbon::today()->startOfMonth())->pluck('manager_id');
+//    foreach (User::whereIn('id',$managerIds)->get as $user){
+//        dispatch(new SendUserReminderJob($user));
+//    }
+//    $deadline = Setting::where('slug', 'deadline')->first()?->desc;
+//    $date = Carbon::now()->subDays($deadline);
+//    $assessments = Assessment::whereDate('start_date', '<', $date)->where('status', 'active')->get();
+//    dd($assessments);
 
 //    foreach ($assessments as $assessment) {
 //

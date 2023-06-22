@@ -27,15 +27,15 @@
             <form action="{{ url('setting') }}" class="mail-temp" method="post">
                 @csrf
                 <div class="tab-content mt-5" id="myTabContent">
-                    <div class="my-6 mx-4">
-                        <div>use <span class="fw-bold">{userName}</span> : for write userName</div>
-                        <div>use <span class="fw-bold">{button}</span> : for create button with link</div>
-                    </div>
+
                     @foreach($all as $temp)
 
                         <div class="tab-pane fade  {{ $loop->first ? 'active show' : '' }}" id="{{ $temp->slug }}"
                              role="tabpanel"
                              aria-labelledby="{{ $temp->slug }}-tab">
+                            <div>
+                                {!! $temp->desc_type !!}
+                            </div>
                             <div class="form-group">
                                 <label>
                                 <textarea class="form-control tinymce"
