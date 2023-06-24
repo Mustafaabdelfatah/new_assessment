@@ -71,7 +71,7 @@ class AssessmentController extends Controller
         $assessmentDate2 = Carbon::parse(Carbon::today());
 
         if ($assessmentDate2->gt($assessmentDate) && $assessment->status == 'active') {
-            abort(403);
+            return view('dashboard.pages.close');
         }
 
         $dateByMonth = $this->assessmentService->getDateByMonth($title);

@@ -1,5 +1,5 @@
 @extends('app')
-@section('title', 'Rate')
+@section('title', 'Settings')
 @section('content')
     <div class="card">
         <!--begin::Card header-->
@@ -15,11 +15,11 @@
         <!--begin::Card body-->
         <div class="card-body py-4">
             <ul class="nav nav-tabs" id="myTab" role="tablist">
-                @foreach($all as $temp)
+                @foreach ($all as $temp)
                     <li class="nav-item" role="presentation">
                         <button class="nav-link {{ $loop->first ? 'active' : '' }}" id="{{ $temp->slug }}-tab"
-                                data-bs-toggle="tab" data-bs-target="#{{ $temp->slug }}" type="button" role="tab"
-                                aria-controls="{{ $temp->slug }}" aria-selected="true">{{ $temp->title }}</button>
+                            data-bs-toggle="tab" data-bs-target="#{{ $temp->slug }}" type="button" role="tab"
+                            aria-controls="{{ $temp->slug }}" aria-selected="true">{{ $temp->title }}</button>
                     </li>
                 @endforeach
             </ul>
@@ -28,18 +28,15 @@
                 @csrf
                 <div class="tab-content mt-5" id="myTabContent">
 
-                    @foreach($all as $temp)
-
+                    @foreach ($all as $temp)
                         <div class="tab-pane fade  {{ $loop->first ? 'active show' : '' }}" id="{{ $temp->slug }}"
-                             role="tabpanel"
-                             aria-labelledby="{{ $temp->slug }}-tab">
+                            role="tabpanel" aria-labelledby="{{ $temp->slug }}-tab">
                             <div>
                                 {!! $temp->desc_type !!}
                             </div>
                             <div class="form-group">
                                 <label>
-                                <textarea class="form-control tinymce"
-                                          name="slug[{{ $temp->slug }}]">{{ $temp->desc }}</textarea>
+                                    <textarea class="form-control tinymce" name="slug[{{ $temp->slug }}]">{{ $temp->desc }}</textarea>
                                 </label>
                             </div>
                         </div>
@@ -64,11 +61,10 @@
         <div class="card-body py-4">
             <form action="{{ url('setting') }}" class="mail-temp" method="post">
                 @csrf
-                @foreach($setting as $temp)
+                @foreach ($setting as $temp)
                     <div class="form-group mb-4">
                         <label>{{ $temp->title }}</label>
-                            <input class="form-control" name="slug[{{ $temp->slug }}]"
-                                   value="{{ $temp->desc }}"/>
+                        <input class="form-control" name="slug[{{ $temp->slug }}]" value="{{ $temp->desc }}" />
                     </div>
                 @endforeach
 
@@ -82,7 +78,7 @@
 @endsection
 @push('js')
     <script src="https://cdn.tiny.cloud/1/eo34dnm013o96dkbqcg43abfc7vnk6o03ip76kcl7it5z6ba/tinymce/6/tinymce.min.js"
-            referrerpolicy="origin"></script>
+        referrerpolicy="origin"></script>
     <script>
         tinymce.init({
             selector: 'textarea',
@@ -91,7 +87,7 @@
         });
 
 
-        $(document).on('submit', 'form.mail-temp', function (e) {
+        $(document).on('submit', 'form.mail-temp', function(e) {
             e.preventDefault();
             //Get list of all selected ids
             let formData = new FormData($(this)[0]);
@@ -100,30 +96,25 @@
 
             //Start Ajax
             $.ajax({
-                type: "post",
-                url: url,
-                processData: false, // tell jQuery not to process the data
-                contentType: false, // tell jQuery not to set contentType
-                async: false,
-                cache: false,
-                enctype: 'multipart/form-data',
-                data: formData,
-                headers: {
-                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                },
-                dataType: "json",
-            })
-                .done(function (data) {
+                    type: "post",
+                    url: url,
+                    processData: false, // tell jQuery not to process the data
+                    contentType: false, // tell jQuery not to set contentType
+                    async: false,
+                    cache: false,
+                    enctype: 'multipart/form-data',
+                    data: formData,
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    },
+                    dataType: "json",
+                })
+                .done(function(data) {
                     alert(data.msg);
                 })
-                .fail(function () {
+                .fail(function() {
 
                 });
         });
-
-
     </script>
-
 @endpush
-
-
