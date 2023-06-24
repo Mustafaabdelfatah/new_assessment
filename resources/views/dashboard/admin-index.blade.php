@@ -32,7 +32,7 @@
                                 <!--begin::Action-->
                                 <div class="mb-3">
                                     <a href="#" class="btn btn-danger fw-semibold me-2" data-bs-toggle="modal"
-                                        data-bs-target="#kt_modal_upgrade_plan">
+                                       data-bs-target="#kt_modal_upgrade_plan">
                                         {{ number_format($highestRatedEmployee->average_rate, 2) }}%
                                     </a>
                                 </div>
@@ -42,7 +42,7 @@
 
                             <!--begin::Illustration-->
                             <img src="{{ asset('assets/media/illustrations/sigma-1/17-dark.png') }}"
-                                class="position-absolute me-3 bottom-0 end-0 h-200px" alt="">
+                                 class="position-absolute me-3 bottom-0 end-0 h-200px" alt="">
                             <!--end::Illustration-->
                         </div>
                         <!--end::Body-->
@@ -70,7 +70,7 @@
                                 <!--begin::Action-->
                                 <div class="mb-3">
                                     <a href="#" class="btn btn-danger fw-semibold me-2" data-bs-toggle="modal"
-                                        data-bs-target="#kt_modal_upgrade_plan">
+                                       data-bs-target="#kt_modal_upgrade_plan">
                                         {{ number_format($lowesttRatedEmployee->average_rate, 2) }}%
                                     </a>
                                 </div>
@@ -80,7 +80,7 @@
 
                             <!--begin::Illustration-->
                             <img src="{{ asset('assets/media/illustrations/sigma-1/17-dark.png') }}"
-                                class="position-absolute me-3 bottom-0 end-0 h-200px" alt="">
+                                 class="position-absolute me-3 bottom-0 end-0 h-200px" alt="">
                             <!--end::Illustration-->
                         </div>
                         <!--end::Body-->
@@ -91,7 +91,8 @@
         <div class="row">
             <div class="col-xl-4 mb-xl-10" style="height: auto">
                 <div class="card card-flush h-xl-100">
-                    <div class="card-header rounded bgi-no-repeat bgi-size-cover bgi-position-y-top bgi-position-x-center align-items-start h-250px"
+                    <div
+                        class="card-header rounded bgi-no-repeat bgi-size-cover bgi-position-y-top bgi-position-x-center align-items-start h-250px"
                         style="background-image:url('https://preview.keenthemes.com/metronic8/demo41/assets/media/svg/shapes/top-green.png')"
                         data-bs-theme="light">
                         <h3 class="card-title align-items-start flex-column text-white pt-15">
@@ -119,7 +120,7 @@
                                                 <span class="svg-icon svg-icon-1 svg-icon-primary">
                                                     {{-- <i class="fas fa-layer-group fs-2x"></i> --}}
                                                     <img src="{{ asset('icons/leadership.png') }}" style="width: 26px"
-                                                        alt="">
+                                                         alt="">
                                                 </span>
                                             </span>
                                         </div>
@@ -136,7 +137,7 @@
                                             <span class="symbol-label">
                                                 <span class="svg-icon svg-icon-1 svg-icon-primary">
                                                     <img src="{{ asset('icons/group.png') }}" style="width: 26px"
-                                                        alt="">
+                                                         alt="">
                                                 </span>
                                             </span>
                                         </div>
@@ -154,7 +155,7 @@
                                             <span class="symbol-label">
                                                 <span class="svg-icon svg-icon-1 svg-icon-primary">
                                                     <img src="{{ asset('icons/question.png') }}" style="width: 26px"
-                                                        alt="">
+                                                         alt="">
                                                 </span>
                                             </span>
                                         </div>
@@ -173,7 +174,7 @@
                                             <span class="symbol-label">
                                                 <span class="svg-icon svg-icon-1 svg-icon-primary">
                                                     <img src="{{ asset('icons/evaluation.png') }}" style="width: 26px"
-                                                        alt="">
+                                                         alt="">
                                                 </span>
                                             </span>
                                         </div>
@@ -375,8 +376,8 @@
     {{-- <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script> --}}
 
     <script>
-        $(document).ready(function(string) {
-            $('.select_group').change(function(e) {
+        $(document).ready(function (string) {
+            $('.select_group').change(function (e) {
 
                 e.preventDefault();
                 let itemVal = $(this).val();
@@ -387,18 +388,18 @@
                         "slug": itemVal,
                     },
                     dataType: 'json',
-                    success: function(res) {
+                    success: function (res) {
                         let selectDate = $('#select-group-date');
                         selectDate.empty();
                         selectDate.append('<option value="all">Select All</option>');
-                        $.each(res.data, function(key, value) {
+                        $.each(res.data, function (key, value) {
                             selectDate.append('<option value="' + value + '">' + value +
                                 '</option>');
                         });
                     }
                 });
             });
-            $('.select_group22').change(function(e) {
+            $('.select_group22').change(function (e) {
 
                 e.preventDefault();
                 let itemVal = $(this).val();
@@ -410,12 +411,12 @@
                         "slug": itemVal,
                     },
                     dataType: 'json',
-                    success: function(res) {
+                    success: function (res) {
 
                         let selectDate = $('#select-group-date22');
                         selectDate.empty();
                         selectDate.append('<option value="all">Select All</option>');
-                        $.each(res.data, function(key, value) {
+                        $.each(res.data, function (key, value) {
                             selectDate.append('<option value="' + value + '">' + value +
                                 '</option>');
                         });
@@ -424,8 +425,7 @@
             });
 
 
-
-            $('#select-group-date22').change(function(e) {
+            $('#select-group-date22').change(function (e) {
                 e.preventDefault();
                 let itemVal = $(this).val();
                 let slug = $('.select_group22').val();
@@ -438,7 +438,7 @@
                         "slug": slug
                     },
                     dataType: 'json',
-                    success: function(res) {
+                    success: function (res) {
                         let highestAvgRates = res.data;
                         let employees = highestAvgRates.map(rate => rate.name);
                         let rates = highestAvgRates.map(rate => rate.avg_rate);
@@ -451,7 +451,10 @@
             $('#select-group-date22').trigger('change');
 
             function updateChart(employees, rates) {
-                // console.log(rates, 'testss');
+                // Check if chart exists
+
+                console.log(rates, 'testss');
+                console.log(employees, 'testss');
                 var options = {
                     series: [{
                         data: rates
@@ -473,8 +476,8 @@
                         categories: employees
                     }
                 };
-
-                var chart = new ApexCharts(document.querySelector("#chart"), options);
+                $('#chart').empty()
+                let chart = new ApexCharts(document.querySelector("#chart"), options);
                 chart.render();
                 // let options = {
                 //     chart: {
@@ -501,7 +504,7 @@
                 // chart.render();
             }
 
-            $('#select-group-date').change(function(e) {
+            $('#select-group-date').change(function (e) {
                 e.preventDefault();
                 let itemVal = $(this).val();
                 let slug = $('.select_group').val();
@@ -514,13 +517,13 @@
                         "slug": slug
                     },
                     dataType: 'json',
-                    success: function(res) {
+                    success: function (res) {
 
                         let highest = res.data.highest;
                         let lowest = res.data.lowest;
                         let highestSection = $('.highestSection');
                         highestSection.empty();
-                        $.each(highest, function(key, value) {
+                        $.each(highest, function (key, value) {
                             highestSection.append(
                                 `<div class="py-1 px-4 mt-2"><span class="fw-bold">${value.name}</span><div class=" empStateTop mt-2 position-relative" ><div  class="userGreen py-1   text-center text-white" style="width:${(parseFloat(value.avg_rate, 2))}%"></div> <span class="avgUser position-absolute">${(parseFloat(value.avg_rate, 2))}%</span></div></div>`
                             );
@@ -528,7 +531,7 @@
 
                         let lowestSection = $('.lowestSection');
                         lowestSection.empty();
-                        $.each(lowest, function(key, value) {
+                        $.each(lowest, function (key, value) {
                             highestSection.append(
                                 `<div class="py-1 px-4 mt-2"> <span class="fw-bold">${value.name}</span><div class=" empStateDanger mt-2 position-relative" ><div class="bg-danger  py-1  text-center text-white" style="width:${(parseFloat(value.avg_rate, 2))}%"></div> <span class="avgUser position-absolute">${(parseFloat(value.avg_rate, 2))}%</span></div></div>`
                             );
@@ -538,7 +541,7 @@
                 });
             });
             $('#select-group-date').trigger('change');
-            $('#select-group-date-second').change(function(e) {
+            $('#select-group-date-second').change(function (e) {
                 e.preventDefault();
                 let itemVal = $(this).val();
 
@@ -549,19 +552,19 @@
                         "dates": itemVal,
                     },
                     dataType: 'json',
-                    success: function(res) {
+                    success: function (res) {
                         let highest = res.data.highest;
                         let lowest = res.data.lowest;
                         let highestSection = $('.highestSectionAll');
                         highestSection.empty();
-                        $.each(highest, function(key, value) {
+                        $.each(highest, function (key, value) {
                             highestSection.append(
                                 `<div class="py-1 px-4 mt-2"><span class="fw-bold">${value.name}</span><div class=" empStateTop mt-2 position-relative" ><div  class="userGreen py-1   text-center text-white" style="width:${(parseFloat(value.avg_rate, 2))}%"></div> <span class="avgUser position-absolute">${(parseFloat(value.avg_rate, 2))}%</span></div></div>`
                             );
                         });
                         let lowestSection = $('.lowestSectionAll');
                         lowestSection.empty();
-                        $.each(lowest, function(key, value) {
+                        $.each(lowest, function (key, value) {
                             highestSection.append(
                                 `<div class="py-1 px-4 mt-2"> <span class="fw-bold">${value.name}</span><div class=" empStateDanger mt-2 position-relative" ><div class="bg-danger  py-1  text-center text-white" style="width:${(parseFloat(value.avg_rate, 2))}%"></div> <span class="avgUser position-absolute">${(parseFloat(value.avg_rate, 2))}%</span></div></div>`
                             );

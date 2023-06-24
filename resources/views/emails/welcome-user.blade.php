@@ -43,28 +43,15 @@
                                 </tr>
                                 <tr>
                                     <td style="padding:0 35px;">
-                                        <h1
-                                            style="color:#1e1e2d; font-weight:500; margin:0;font-size:32px;font-family:'Rubik',sans-serif;">
-                                            Welcome to Assessment Dashboard </h1>
-                                        <span
-                                            style="display:inline-block; vertical-align:middle; margin:29px 0 26px; border-bottom:1px solid #cecece; width:100px;"></span>
-                                        <p style="color:#455056; font-size:15px;line-height:24px; margin:0;">
-                                        <div style="text-align:left;margin-bottom:10px">
-                                            Dear {{ $name }}
-                                        </div>
-                                        <h3 style="text-align: left">   Your Login credentials : </h3>
-                                        <span style="display:block;text-align:left"> Your Email : {{ $email }}</span>
-                                        <span style="display:block;text-align:left"> Your Password : {{ $password }}</span> <br>
-                                        <span style="display:block;text-align:left">
-                                            Please keep your login credentials safe and secure, as they provide access to
-                                            your account and any data
-                                            associated with it.
-                                        </span>
 
-                                        </p>
+
+                                        <div style="text-align:left;margin-bottom:10px">
+                                            {!! $temp !!}
+                                        </div>
+
                                         @if (isset($link))
                                             <a href="{{ $link }}"
-                                                style="background:#11044c;text-decoration:none !important; font-weight:500; margin-top:35px; color:#fff;text-transform:uppercase; font-size:14px;padding:10px 24px;display:inline-block;border-radius:50px;">Open
+                                               style="background:#11044c;text-decoration:none !important; font-weight:500; margin-top:35px; color:#fff;text-transform:uppercase; font-size:14px;padding:10px 24px;display:inline-block;border-radius:50px;">Open
                                                 Link</a>
                                         @endif
 
